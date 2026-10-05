@@ -39,179 +39,329 @@ textarea {
 
 
 /* =========================================================
-   DEFAULT THEME — GREEN + BLACK
-/* =========================================================
-   FINAL PORTFOLIO THEME SWITCHER
+    DEFAULT THEME — GREEN + BLACK
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+:root {
+    --bg-color: #050505;
+    --second-bg-color: #0b0b0b;
+    --card-color: #101010;
 
-    const themeToggle = document.getElementById("themeToggle");
-    const themePanel = document.getElementById("themePanel");
-    const themeButtons = document.querySelectorAll(".theme-btn");
+    --text-color: #ededed;
+    --heading-color: #ffffff;
+    --muted-color: #a3a3a3;
 
-    console.log("=================================");
-    console.log("Theme Switcher Loaded");
-    console.log("Toggle:", themeToggle);
-    console.log("Panel:", themePanel);
-    console.log("Buttons:", themeButtons.length);
-    console.log("=================================");
+    --main-color: #00e45b;
+    --main-dark: #00a844;
 
+    --line-color: #202020;
+    --border-color: rgba(0, 228, 91, 0.38);
 
-    /* -----------------------------------------------------
-       SAFETY CHECK
-    ----------------------------------------------------- */
+    --soft-color: rgba(0, 228, 91, 0.08);
+    --shadow-color: rgba(0, 228, 91, 0.25);
 
-    if (!themeToggle) {
-        console.error("Theme Toggle button not found.");
-        return;
-    }
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.30);
 
-    if (!themePanel) {
-        console.error("Theme Panel not found.");
-        return;
-    }
+    --input-bg: #0d0d0d;
+    --button-text: #050505;
 
-
-    /* -----------------------------------------------------
-       AVAILABLE THEMES
-    ----------------------------------------------------- */
-
-    const validThemes = [
-        "green-black",
-        "yellow-black",
-        "orange-black",
-        "cyan-black",
-        "red-black",
-        "purple-black",
-        "ice-blue-black"
-    ];
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
 
-    /* -----------------------------------------------------
-       APPLY THEME
-    ----------------------------------------------------- */
+/* =========================================================
+    GREEN + BLACK
+========================================================= */
 
-    function applyTheme(theme) {
+[data-theme="green"] {
+    --bg-color: #050505;
+    --second-bg-color: #0b0b0b;
+    --card-color: #101010;
 
-        if (!validThemes.includes(theme)) {
-            theme = "green-black";
-        }
+    --text-color: #ededed;
+    --heading-color: #ffffff;
+    --muted-color: #a3a3a3;
 
-        document.documentElement.setAttribute(
-            "data-theme",
-            theme
-        );
+    --main-color: #00e45b;
+    --main-dark: #00a844;
 
-        localStorage.setItem(
-            "portfolioTheme",
-            theme
-        );
+    --line-color: #202020;
+    --border-color: rgba(0, 228, 91, 0.38);
 
-        console.log("Theme applied:", theme);
-    }
+    --soft-color: rgba(0, 228, 91, 0.08);
+    --shadow-color: rgba(0, 228, 91, 0.25);
 
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.30);
 
-    /* -----------------------------------------------------
-       LOAD SAVED THEME
-    ----------------------------------------------------- */
+    --input-bg: #0d0d0d;
+    --button-text: #050505;
 
-    const savedTheme =
-        localStorage.getItem("portfolioTheme");
-
-    applyTheme(
-        validThemes.includes(savedTheme)
-            ? savedTheme
-            : "green-black"
-    );
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
 
-    /* -----------------------------------------------------
-       OPEN / CLOSE THEME PANEL
-    ----------------------------------------------------- */
+/* =========================================================
+    YELLOW + BLACK
+========================================================= */
 
-    themeToggle.addEventListener("click", function (event) {
+[data-theme="blue"] {
+    --bg-color: #050505;
+    --second-bg-color: #0d0d0d;
+    --card-color: #121212;
 
-        event.preventDefault();
-        event.stopPropagation();
+    --text-color: #f5f5f5;
+    --heading-color: #ffffff;
+    --muted-color: #a8a8a8;
 
-        themePanel.classList.toggle("active");
+    --main-color: #ffd60a;
+    --main-dark: #d6ae00;
 
-        console.log(
-            "Theme panel:",
-            themePanel.classList.contains("active")
-                ? "OPEN"
-                : "CLOSED"
-        );
+    --line-color: #292929;
+    --border-color: rgba(255, 214, 10, 0.40);
 
-    });
+    --soft-color: rgba(255, 214, 10, 0.08);
+    --shadow-color: rgba(255, 214, 10, 0.23);
 
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.32);
 
-    /* -----------------------------------------------------
-       THEME BUTTONS
-    ----------------------------------------------------- */
+    --input-bg: #0e0e0e;
+    --button-text: #050505;
 
-    themeButtons.forEach(function (button) {
-
-        button.addEventListener("click", function (event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            const selectedTheme =
-                button.getAttribute("data-theme");
-
-            console.log(
-                "Selected theme:",
-                selectedTheme
-            );
-
-            if (!selectedTheme) {
-                return;
-            }
-
-            applyTheme(selectedTheme);
-
-            themePanel.classList.remove("active");
-
-        });
-
-    });
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
 
-    /* -----------------------------------------------------
-       CLICK OUTSIDE
-    ----------------------------------------------------- */
+/* =========================================================
+    VIOLET + DEEP NAVY
+========================================================= */
 
-    document.addEventListener("click", function (event) {
+[data-theme="purple"] {
+    --bg-color: #0b0a16;
+    --second-bg-color: #121026;
+    --card-color: #17152d;
 
-        if (
-            !themePanel.contains(event.target) &&
-            !themeToggle.contains(event.target)
-        ) {
+    --text-color: #f2efff;
+    --heading-color: #ffffff;
+    --muted-color: #aaa4bf;
 
-            themePanel.classList.remove("active");
+    --main-color: #a78bfa;
+    --main-dark: #7c5ce5;
 
-        }
+    --line-color: #292640;
+    --border-color: rgba(167, 139, 250, 0.38);
 
-    });
+    --soft-color: rgba(167, 139, 250, 0.10);
+    --shadow-color: rgba(167, 139, 250, 0.24);
+
+    --hero-overlay-1: rgba(11, 10, 22, 0.72);
+    --hero-overlay-2: rgba(11, 10, 22, 0.48);
+    --hero-overlay-3: rgba(11, 10, 22, 0.12);
+
+    --input-bg: #121026;
+    --button-text: #090812;
+
+    --navbar-bg: rgba(11, 10, 22, 0.78);
+}
 
 
-    /* -----------------------------------------------------
-       ESCAPE KEY
-    ----------------------------------------------------- */
+/* =========================================================
+    MINT + CHARCOAL
+========================================================= */
 
-    document.addEventListener("keydown", function (event) {
+[data-theme="red"] {
+    --bg-color: #111514;
+    --second-bg-color: #191e1c;
+    --card-color: #202724;
 
-        if (event.key === "Escape") {
+    --text-color: #f1f8f5;
+    --heading-color: #ffffff;
+    --muted-color: #a5b4ae;
 
-            themePanel.classList.remove("active");
+    --main-color: #5eead4;
+    --main-dark: #2bbbad;
 
-        }
+    --line-color: #303b37;
+    --border-color: rgba(94, 234, 212, 0.36);
 
-    });
+    --soft-color: rgba(94, 234, 212, 0.08);
+    --shadow-color: rgba(94, 234, 212, 0.20);
 
-});
+    --hero-overlay-1: rgba(17, 21, 20, 0.98);
+    --hero-overlay-2: rgba(17, 21, 20, 0.84);
+    --hero-overlay-3: rgba(17, 21, 20, 0.35);
+
+    --input-bg: #1b211f;
+    --button-text: #07110f;
+
+    --navbar-bg: rgba(17, 21, 20, 0.82);
+}
+
+
+/* =========================================================
+    ORANGE + DARK WARM CHARCOAL
+========================================================= */
+
+[data-theme="orange"] {
+    --bg-color: #15100b;
+    --second-bg-color: #21170e;
+    --card-color: #281b10;
+
+    --text-color: #fff4e8;
+    --heading-color: #fffaf5;
+    --muted-color: #b9a99a;
+
+    --main-color: #ff9f43;
+    --main-dark: #e87918;
+
+    --line-color: #3b2a1c;
+    --border-color: rgba(255, 159, 67, 0.38);
+
+    --soft-color: rgba(255, 159, 67, 0.10);
+    --shadow-color: rgba(255, 159, 67, 0.23);
+
+    --hero-overlay-1: rgba(21, 16, 11, 0.70);
+    --hero-overlay-2: rgba(21, 16, 11, 0.47);
+    --hero-overlay-3: rgba(21, 16, 11, 0.12);
+
+    --input-bg: #21170e;
+    --button-text: #140d07;
+
+    --navbar-bg: rgba(21, 16, 11, 0.78);
+}
+
+
+/* =========================================================
+    ROSE + BLACK
+========================================================= */
+
+[data-theme="cyan"] {
+    --bg-color: #080808;
+    --second-bg-color: #111111;
+    --card-color: #171717;
+
+    --text-color: #f5f5f5;
+    --heading-color: #ffffff;
+    --muted-color: #a1a1a1;
+
+    --main-color: #fb7185;
+    --main-dark: #df4e63;
+
+    --line-color: #282828;
+    --border-color: rgba(251, 113, 133, 0.38);
+
+    --soft-color: rgba(251, 113, 133, 0.08);
+    --shadow-color: rgba(251, 113, 133, 0.22);
+
+    --hero-overlay-1: rgba(8, 8, 8, 0.98);
+    --hero-overlay-2: rgba(8, 8, 8, 0.84);
+    --hero-overlay-3: rgba(8, 8, 8, 0.32);
+
+    --input-bg: #101010;
+    --button-text: #080808;
+
+    --navbar-bg: rgba(8, 8, 8, 0.80);
+}
+
+/* =========================================================
+    RED + BLACK
+========================================================= */
+
+[data-theme="red-black"] {
+    --bg-color: #050505;
+    --second-bg-color: #0b0b0b;
+    --card-color: #101010;
+
+    --text-color: #f5f5f5;
+    --heading-color: #ffffff;
+    --muted-color: #a3a3a3;
+
+    --main-color: #f11629;
+    --main-dark: #f11629;
+
+    --line-color: #242424;
+    --border-color: rgba(255, 59, 79, 0.40);
+
+    --soft-color: rgba(255, 59, 79, 0.10);
+    --shadow-color: rgba(255, 59, 79, 0.22);
+
+    --hero-overlay-1: rgba(0, 0, 0, 0.86);
+    --hero-overlay-2: rgba(0, 0, 0, 0.58);
+    --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+    --input-bg: #0d0d0d;
+    --button-text: #ffffff;
+    --navbar-bg: rgba(5, 5, 5, 0.88);
+}
+
+
+/* =========================================================
+    PURPLE + BLACK
+========================================================= */
+
+[data-theme="purple-black"] {
+  --bg-color: #050505;
+  --second-bg-color: #0b0b0b;
+  --card-color: #101010;
+
+  --text-color: #f5f5f5;
+  --heading-color: #ffffff;
+  --muted-color: #a3a3a3;
+
+  --main-color: #a855f7;
+  --main-dark: #7e22ce;
+
+  --line-color: #242424;
+  --border-color: rgba(168, 85, 247, 0.40);
+
+  --soft-color: rgba(168, 85, 247, 0.10);
+  --shadow-color: rgba(168, 85, 247, 0.24);
+
+  --hero-overlay-1: rgba(0, 0, 0, 0.86);
+  --hero-overlay-2: rgba(0, 0, 0, 0.58);
+  --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+  --input-bg: #0d0d0d;
+  --button-text: #ffffff;
+  --navbar-bg: rgba(5, 5, 5, 0.88);
+}
+
+
+/* =========================================================
+    ICE BLUE + BLACK
+========================================================= */
+
+[data-theme="ice-blue-black"] {
+  --bg-color: #050505;
+  --second-bg-color: #0b0b0b;
+  --card-color: #101010;
+
+  --text-color: #f5f5f5;
+  --heading-color: #ffffff;
+  --muted-color: #a3a3a3;
+
+  --main-color: #67d5ff;
+  --main-dark: #159bd3;
+
+  --line-color: #242424;
+  --border-color: rgba(103, 213, 255, 0.40);
+
+  --soft-color: rgba(103, 213, 255, 0.10);
+  --shadow-color: rgba(103, 213, 255, 0.22);
+
+  --hero-overlay-1: rgba(0, 0, 0, 0.86);
+  --hero-overlay-2: rgba(0, 0, 0, 0.58);
+  --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+  --input-bg: #0d0d0d;
+  --button-text: #050505;
+  --navbar-bg: rgba(5, 5, 5, 0.88);
+}
 
 /* =========================================================
    PAGE BACKGROUND
@@ -1243,6 +1393,183 @@ document.addEventListener("DOMContentLoaded", function () {
 
     font-weight: 600;
 }
+
+/* =========================================================
+    THEME SWITCHER
+========================================================= */
+
+.theme-switcher {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 2147483647;
+    font-family: inherit;
+}
+
+.theme-toggle {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--main-color);
+    border-radius: 50%;
+    background: #0b1722;
+    color: var(--main-color);
+    cursor: pointer;
+    outline: none;
+    box-shadow:
+        0 0 12px var(--shadow-color),
+        0 0 30px var(--shadow-color);
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.theme-icon {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.08);
+    background: var(--main-color);
+    color: #000;
+    box-shadow:
+        0 0 18px var(--main-color),
+        0 0 35px var(--shadow-color);
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(180deg);
+}
+
+/* =========================================================
+    THEME PANEL
+========================================================= */
+
+.theme-panel {
+    position: absolute;
+    right: 0;
+    bottom: 75px;
+    width: 225px;
+    padding: 12px;
+    background: #101820;
+    border: 1px solid var(--main-color);
+    border-radius: 18px;
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.45),
+        0 0 25px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.theme-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 13px;
+    margin: 3px 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #ffffff !important;
+    font-family: "Outfit", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--main-color) !important;
+    transform: translateX(4px);
+}
+
+.theme-dot {
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    flex-shrink: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+
+/* =========================================================
+    THEME DOT COLORS
+========================================================= */
+
+.theme-dot.green {
+    background: #00e45b;
+    color: #00e45b;
+}
+
+.theme-dot.blue {
+    background: #ffd60a;
+    color: #ffd60a;
+}
+
+.theme-dot.purple {
+    background: #a78bfa;
+    color: #a78bfa;
+}
+
+.theme-dot.cyan {
+    background: #5eead4;
+    color: #5eead4;
+}
+
+.theme-dot.orange {
+    background: #ff9f43;
+    color: #ff9f43;
+}
+
+.theme-dot.red-black {
+    background: #f11629;
+    color: #f11629;
+}
+
+.theme-dot.red {
+    background: #fb7185;
+    color: #fb7185;
+}
+
+.theme-dot.brown {
+    background: #B87333;
+    color: #B87333;
+}
+
+.theme-dot.green{background:#00a94f;color:#00a94f}
+.theme-dot.red-black{background:#f11629;color:#f11629}
+.theme-dot.yellow{background:#d6a900;color:#d6a900}
+.theme-dot.purple{background:#7c3aed;color:#7c3aed}
+.theme-dot.orange{background:#ea6c0b;color:#ea6c0b}
+.theme-dot.cyan{background:#159bd3;color:#159bd3}
+.theme-dot.brown{background:#B87333;color:#B87333}
+
+
 
 
 
