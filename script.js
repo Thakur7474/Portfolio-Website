@@ -552,6 +552,135 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   FINAL THEME SWITCHER
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const themeToggle = document.getElementById("themeToggle");
+    const themePanel = document.getElementById("themePanel");
+    const themeButtons = document.querySelectorAll(".theme-btn");
+
+    if (!themeToggle || !themePanel) {
+        console.error("Theme switcher elements not found.");
+        return;
+    }
+
+    const themes = [
+        "green-black",
+        "yellow-black",
+        "orange-black",
+        "cyan-black",
+        "red-black",
+        "purple-black",
+        "ice-blue-black"
+    ];
+
+    function applyTheme(theme) {
+
+        if (!themes.includes(theme)) {
+            theme = "green-black";
+        }
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+        localStorage.setItem(
+            "portfolioTheme",
+            theme
+        );
+    }
+
+
+    /* LOAD SAVED THEME */
+
+    const savedTheme =
+        localStorage.getItem("portfolioTheme");
+
+    applyTheme(
+        themes.includes(savedTheme)
+            ? savedTheme
+            : "green-black"
+    );
+
+
+    /* OPEN / CLOSE TOGGLE */
+
+    themeToggle.addEventListener("click", (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        themePanel.classList.toggle("active");
+
+        console.log(
+            "Theme panel:",
+            themePanel.classList.contains("active")
+                ? "OPEN"
+                : "CLOSED"
+        );
+    });
+
+
+    /* THEME SELECTION */
+
+    themeButtons.forEach((button) => {
+
+        button.addEventListener("click", (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const selectedTheme =
+                button.getAttribute("data-theme");
+
+            if (!selectedTheme) return;
+
+            applyTheme(selectedTheme);
+
+            themePanel.classList.remove("active");
+        });
+
+    });
+
+
+    /* CLOSE WHEN CLICKING OUTSIDE */
+
+    document.addEventListener("click", (event) => {
+
+        if (
+            !themePanel.contains(event.target) &&
+            !themeToggle.contains(event.target)
+        ) {
+            themePanel.classList.remove("active");
+        }
+
+    });
+
+
+    /* ESC KEY */
+
+    document.addEventListener("keydown", (event) => {
+
+        if (event.key === "Escape") {
+            themePanel.classList.remove("active");
+        }
+
+    });
+
+});
               
 
 
