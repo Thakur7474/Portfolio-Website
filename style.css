@@ -40,438 +40,178 @@ textarea {
 
 /* =========================================================
    DEFAULT THEME — GREEN + BLACK
-========================================================= */
-
-:root {
-    --bg-color: #050505;
-    --second-bg-color: #0b0b0b;
-    --card-color: #101010;
-
-    --text-color: #ededed;
-    --heading-color: #ffffff;
-    --muted-color: #a3a3a3;
-
-    --main-color: #00e45b;
-    --main-dark: #00a844;
-
-    --line-color: #202020;
-    --border-color: rgba(0, 228, 91, 0.38);
-
-    --soft-color: rgba(0, 228, 91, 0.08);
-    --shadow-color: rgba(0, 228, 91, 0.25);
-
-    --hero-overlay-1: rgba(0, 0, 0, 0.98);
-    --hero-overlay-2: rgba(0, 0, 0, 0.82);
-    --hero-overlay-3: rgba(0, 0, 0, 0.30);
-
-    --input-bg: #0d0d0d;
-    --button-text: #050505;
-
-    --navbar-bg: rgba(5, 5, 5, 0.78);
-}
-
-
 /* =========================================================
-   GREEN + BLACK
+   FINAL PORTFOLIO THEME SWITCHER
 ========================================================= */
 
-[data-theme="green"] {
-    --bg-color: #050505;
-    --second-bg-color: #0b0b0b;
-    --card-color: #101010;
+document.addEventListener("DOMContentLoaded", function () {
 
-    --text-color: #ededed;
-    --heading-color: #ffffff;
-    --muted-color: #a3a3a3;
+    const themeToggle = document.getElementById("themeToggle");
+    const themePanel = document.getElementById("themePanel");
+    const themeButtons = document.querySelectorAll(".theme-btn");
 
-    --main-color: #00e45b;
-    --main-dark: #00a844;
+    console.log("=================================");
+    console.log("Theme Switcher Loaded");
+    console.log("Toggle:", themeToggle);
+    console.log("Panel:", themePanel);
+    console.log("Buttons:", themeButtons.length);
+    console.log("=================================");
 
-    --line-color: #202020;
-    --border-color: rgba(0, 228, 91, 0.38);
 
-    --soft-color: rgba(0, 228, 91, 0.08);
-    --shadow-color: rgba(0, 228, 91, 0.25);
+    /* -----------------------------------------------------
+       SAFETY CHECK
+    ----------------------------------------------------- */
 
-    --hero-overlay-1: rgba(0, 0, 0, 0.98);
-    --hero-overlay-2: rgba(0, 0, 0, 0.82);
-    --hero-overlay-3: rgba(0, 0, 0, 0.30);
+    if (!themeToggle) {
+        console.error("Theme Toggle button not found.");
+        return;
+    }
 
-    --input-bg: #0d0d0d;
-    --button-text: #050505;
+    if (!themePanel) {
+        console.error("Theme Panel not found.");
+        return;
+    }
 
-    --navbar-bg: rgba(5, 5, 5, 0.78);
-}
 
+    /* -----------------------------------------------------
+       AVAILABLE THEMES
+    ----------------------------------------------------- */
 
-/* =========================================================
-   YELLOW + BLACK
-========================================================= */
+    const validThemes = [
+        "green-black",
+        "yellow-black",
+        "orange-black",
+        "cyan-black",
+        "red-black",
+        "purple-black",
+        "ice-blue-black"
+    ];
 
-[data-theme="blue"] {
-    --bg-color: #050505;
-    --second-bg-color: #0d0d0d;
-    --card-color: #121212;
 
-    --text-color: #f5f5f5;
-    --heading-color: #ffffff;
-    --muted-color: #a8a8a8;
+    /* -----------------------------------------------------
+       APPLY THEME
+    ----------------------------------------------------- */
 
-    --main-color: #ffd60a;
-    --main-dark: #d6ae00;
+    function applyTheme(theme) {
 
-    --line-color: #292929;
-    --border-color: rgba(255, 214, 10, 0.40);
+        if (!validThemes.includes(theme)) {
+            theme = "green-black";
+        }
 
-    --soft-color: rgba(255, 214, 10, 0.08);
-    --shadow-color: rgba(255, 214, 10, 0.23);
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
 
-    --hero-overlay-1: rgba(0, 0, 0, 0.98);
-    --hero-overlay-2: rgba(0, 0, 0, 0.82);
-    --hero-overlay-3: rgba(0, 0, 0, 0.32);
+        localStorage.setItem(
+            "portfolioTheme",
+            theme
+        );
 
-    --input-bg: #0e0e0e;
-    --button-text: #050505;
+        console.log("Theme applied:", theme);
+    }
 
-    --navbar-bg: rgba(5, 5, 5, 0.78);
-}
 
+    /* -----------------------------------------------------
+       LOAD SAVED THEME
+    ----------------------------------------------------- */
 
-/* =========================================================
-   VIOLET + DEEP NAVY
-========================================================= */
+    const savedTheme =
+        localStorage.getItem("portfolioTheme");
 
-[data-theme="purple"] {
-    --bg-color: #0b0a16;
-    --second-bg-color: #121026;
-    --card-color: #17152d;
+    applyTheme(
+        validThemes.includes(savedTheme)
+            ? savedTheme
+            : "green-black"
+    );
 
-    --text-color: #f2efff;
-    --heading-color: #ffffff;
-    --muted-color: #aaa4bf;
 
-    --main-color: #a78bfa;
-    --main-dark: #7c5ce5;
+    /* -----------------------------------------------------
+       OPEN / CLOSE THEME PANEL
+    ----------------------------------------------------- */
 
-    --line-color: #292640;
-    --border-color: rgba(167, 139, 250, 0.38);
+    themeToggle.addEventListener("click", function (event) {
 
-    --soft-color: rgba(167, 139, 250, 0.10);
-    --shadow-color: rgba(167, 139, 250, 0.24);
+        event.preventDefault();
+        event.stopPropagation();
 
-    --hero-overlay-1: rgba(11, 10, 22, 0.72);
-    --hero-overlay-2: rgba(11, 10, 22, 0.48);
-    --hero-overlay-3: rgba(11, 10, 22, 0.12);
+        themePanel.classList.toggle("active");
 
-    --input-bg: #121026;
-    --button-text: #090812;
+        console.log(
+            "Theme panel:",
+            themePanel.classList.contains("active")
+                ? "OPEN"
+                : "CLOSED"
+        );
 
-    --navbar-bg: rgba(11, 10, 22, 0.78);
-}
+    });
 
 
-/* =========================================================
-   MINT + CHARCOAL
-========================================================= */
+    /* -----------------------------------------------------
+       THEME BUTTONS
+    ----------------------------------------------------- */
 
-[data-theme="red"] {
-    --bg-color: #111514;
-    --second-bg-color: #191e1c;
-    --card-color: #202724;
+    themeButtons.forEach(function (button) {
 
-    --text-color: #f1f8f5;
-    --heading-color: #ffffff;
-    --muted-color: #a5b4ae;
+        button.addEventListener("click", function (event) {
 
-    --main-color: #5eead4;
-    --main-dark: #2bbbad;
+            event.preventDefault();
+            event.stopPropagation();
 
-    --line-color: #303b37;
-    --border-color: rgba(94, 234, 212, 0.36);
+            const selectedTheme =
+                button.getAttribute("data-theme");
 
-    --soft-color: rgba(94, 234, 212, 0.08);
-    --shadow-color: rgba(94, 234, 212, 0.20);
+            console.log(
+                "Selected theme:",
+                selectedTheme
+            );
 
-    --hero-overlay-1: rgba(17, 21, 20, 0.98);
-    --hero-overlay-2: rgba(17, 21, 20, 0.84);
-    --hero-overlay-3: rgba(17, 21, 20, 0.35);
+            if (!selectedTheme) {
+                return;
+            }
 
-    --input-bg: #1b211f;
-    --button-text: #07110f;
+            applyTheme(selectedTheme);
 
-    --navbar-bg: rgba(17, 21, 20, 0.82);
-}
+            themePanel.classList.remove("active");
 
+        });
 
-/* =========================================================
-   ORANGE + DARK WARM CHARCOAL
-========================================================= */
+    });
 
-[data-theme="orange"] {
-    --bg-color: #15100b;
-    --second-bg-color: #21170e;
-    --card-color: #281b10;
 
-    --text-color: #fff4e8;
-    --heading-color: #fffaf5;
-    --muted-color: #b9a99a;
+    /* -----------------------------------------------------
+       CLICK OUTSIDE
+    ----------------------------------------------------- */
 
-    --main-color: #ff9f43;
-    --main-dark: #e87918;
+    document.addEventListener("click", function (event) {
 
-    --line-color: #3b2a1c;
-    --border-color: rgba(255, 159, 67, 0.38);
+        if (
+            !themePanel.contains(event.target) &&
+            !themeToggle.contains(event.target)
+        ) {
 
-    --soft-color: rgba(255, 159, 67, 0.10);
-    --shadow-color: rgba(255, 159, 67, 0.23);
+            themePanel.classList.remove("active");
 
-    --hero-overlay-1: rgba(21, 16, 11, 0.70);
-    --hero-overlay-2: rgba(21, 16, 11, 0.47);
-    --hero-overlay-3: rgba(21, 16, 11, 0.12);
+        }
 
-    --input-bg: #21170e;
-    --button-text: #140d07;
+    });
 
-    --navbar-bg: rgba(21, 16, 11, 0.78);
-}
 
+    /* -----------------------------------------------------
+       ESCAPE KEY
+    ----------------------------------------------------- */
 
-/* =========================================================
-   ROSE + BLACK
-========================================================= */
+    document.addEventListener("keydown", function (event) {
 
-[data-theme="cyan"] {
-    --bg-color: #080808;
-    --second-bg-color: #111111;
-    --card-color: #171717;
+        if (event.key === "Escape") {
 
-    --text-color: #f5f5f5;
-    --heading-color: #ffffff;
-    --muted-color: #a1a1a1;
+            themePanel.classList.remove("active");
 
-    --main-color: #fb7185;
-    --main-dark: #df4e63;
+        }
 
-    --line-color: #282828;
-    --border-color: rgba(251, 113, 133, 0.38);
+    });
 
-    --soft-color: rgba(251, 113, 133, 0.08);
-    --shadow-color: rgba(251, 113, 133, 0.22);
-
-    --hero-overlay-1: rgba(8, 8, 8, 0.98);
-    --hero-overlay-2: rgba(8, 8, 8, 0.84);
-    --hero-overlay-3: rgba(8, 8, 8, 0.32);
-
-    --input-bg: #101010;
-    --button-text: #080808;
-
-    --navbar-bg: rgba(8, 8, 8, 0.80);
-}
-
-/* =========================================================
-   RED + BLACK
-========================================================= */
-
-[data-theme="red-black"] {
-  --bg-color: #050505;
-  --second-bg-color: #0b0b0b;
-  --card-color: #101010;
-
-  --text-color: #f5f5f5;
-  --heading-color: #ffffff;
-  --muted-color: #a3a3a3;
-
-  --main-color: #f11629;
-  --main-dark: #f11629;
-
-  --line-color: #242424;
-  --border-color: rgba(255, 59, 79, 0.40);
-
-  --soft-color: rgba(255, 59, 79, 0.10);
-  --shadow-color: rgba(255, 59, 79, 0.22);
-
-  --hero-overlay-1: rgba(0, 0, 0, 0.86);
-  --hero-overlay-2: rgba(0, 0, 0, 0.58);
-  --hero-overlay-3: rgba(0, 0, 0, 0.20);
-
-  --input-bg: #0d0d0d;
-  --button-text: #ffffff;
-  --navbar-bg: rgba(5, 5, 5, 0.88);
-}
-
-
-/* =========================================================
-   PURPLE + BLACK
-========================================================= */
-
-[data-theme="purple-black"] {
-  --bg-color: #050505;
-  --second-bg-color: #0b0b0b;
-  --card-color: #101010;
-
-  --text-color: #f5f5f5;
-  --heading-color: #ffffff;
-  --muted-color: #a3a3a3;
-
-  --main-color: #a855f7;
-  --main-dark: #7e22ce;
-
-  --line-color: #242424;
-  --border-color: rgba(168, 85, 247, 0.40);
-
-  --soft-color: rgba(168, 85, 247, 0.10);
-  --shadow-color: rgba(168, 85, 247, 0.24);
-
-  --hero-overlay-1: rgba(0, 0, 0, 0.86);
-  --hero-overlay-2: rgba(0, 0, 0, 0.58);
-  --hero-overlay-3: rgba(0, 0, 0, 0.20);
-
-  --input-bg: #0d0d0d;
-  --button-text: #ffffff;
-  --navbar-bg: rgba(5, 5, 5, 0.88);
-}
-
-
-/* =========================================================
-   ICE BLUE + BLACK
-========================================================= */
-
-[data-theme="ice-blue-black"] {
-  --bg-color: #050505;
-  --second-bg-color: #0b0b0b;
-  --card-color: #101010;
-
-  --text-color: #f5f5f5;
-  --heading-color: #ffffff;
-  --muted-color: #a3a3a3;
-
-  --main-color: #67d5ff;
-  --main-dark: #159bd3;
-
-  --line-color: #242424;
-  --border-color: rgba(103, 213, 255, 0.40);
-
-  --soft-color: rgba(103, 213, 255, 0.10);
-  --shadow-color: rgba(103, 213, 255, 0.22);
-
-  --hero-overlay-1: rgba(0, 0, 0, 0.86);
-  --hero-overlay-2: rgba(0, 0, 0, 0.58);
-  --hero-overlay-3: rgba(0, 0, 0, 0.20);
-
-  --input-bg: #0d0d0d;
-  --button-text: #050505;
-  --navbar-bg: rgba(5, 5, 5, 0.88);
-}
-
-
-[data-theme="green-white"]{
-  --bg-color:#fff;
-  --second-bg-color:#f4faf6;
-  --card-color:#fff;
-  --text-color:#1d2921;
-  --heading-color:#0b1710;
-  --muted-color:#66736a;
-  --main-color:#00a94f;
-  --main-dark:#007b39;
-  --line-color:#dce8df;
-  --border-color:rgba(0,169,79,.32);
-  --soft-color:rgba(0,169,79,.08);
-  --shadow-color:rgba(0,169,79,.18);
-  --hero-overlay-1:rgba(255,255,255,.78);
-  --hero-overlay-2:rgba(255,255,255,.46);
-  --hero-overlay-3:rgba(255,255,255,.10);
-  --input-bg:#fff;
-  --button-text:#fff;
-  --navbar-bg:rgba(255,255,255,.82);
-}
-
-[data-theme="red-white"]{
-  --bg-color:#fff;
-  --second-bg-color:#fff5f5;
-  --card-color:#fff;
-  --text-color:#351d21;
-  --heading-color:#170b0d;
-  --muted-color:#766568;
-  --main-color:#f11629;
-  --main-dark:#f11629;
-  --line-color:#ead9dc;
-  --border-color:rgba(230,57,70,.30);
-  --soft-color:rgba(230,57,70,.07);
-  --shadow-color:rgba(230,57,70,.18);
-  --hero-overlay-1:rgba(255,255,255,.77);
-  --hero-overlay-2:rgba(255,255,255,.43);
-  --hero-overlay-3:rgba(255,255,255,.08);
-  --input-bg:#fff;
-  --button-text:#fff;
-  --navbar-bg:rgba(255,255,255,.84);
-}
-
-[data-theme="yellow-white"]{
-  --bg-color:#fffef7;
-  --second-bg-color:#fffbea;
-  --card-color:#fff;
-  --text-color:#39351b;
-  --heading-color:#1c1909;
-  --muted-color:#716c52;
-  --main-color:#d6a900;
-  --main-dark:#a98200;
-  --line-color:#eee6bf;
-  --border-color:rgba(214,169,0,.32);
-  --soft-color:rgba(214,169,0,.09);
-  --shadow-color:rgba(214,169,0,.18);
-  --hero-overlay-1:rgba(255,254,247,.76);
-  --hero-overlay-2:rgba(255,254,247,.42);
-  --hero-overlay-3:rgba(255,254,247,.08);
-  --input-bg:#fff;
-  --button-text:#1c1909;
-  --navbar-bg:rgba(255,254,247,.84);
-}
-
-[data-theme="purple-white"]{
-  --bg-color:#fff;
-  --second-bg-color:#faf7ff;
-  --card-color:#fff;
-  --text-color:#30263d;
-  --heading-color:#160c22;
-  --muted-color:#756a82;
-  --main-color:#7c3aed;
-  --main-dark:#5b21b6;
-  --line-color:#e5ddf0;
-  --border-color:rgba(124,58,237,.30);
-  --soft-color:rgba(124,58,237,.08);
-  --shadow-color:rgba(124,58,237,.18);
-  --hero-overlay-1:rgba(255,255,255,.76);
-  --hero-overlay-2:rgba(255,255,255,.42);
-  --hero-overlay-3:rgba(255,255,255,.08);
-  --input-bg:#fff;
-  --button-text:#fff;
-  --navbar-bg:rgba(255,255,255,.84);
-}
-
-[data-theme="orange-white"]{
-  --bg-color:#fff;
-  --second-bg-color:#fff8f1;
-  --card-color:#fff;
-  --text-color:#38281e;
-  --heading-color:#1d1008;
-  --muted-color:#76675b;
-  --main-color:#ea6c0b;
-  --main-dark:#bd4f00;
-  --line-color:#eddfd2;
-  --border-color:rgba(234,108,11,.30);
-  --soft-color:rgba(234,108,11,.08);
-  --shadow-color:rgba(234,108,11,.18);
-  --hero-overlay-1:rgba(255,255,255,.76);
-  --hero-overlay-2:rgba(255,255,255,.42);
-  --hero-overlay-3:rgba(255,255,255,.08);
-  --input-bg:#fff;
-  --button-text:#fff;
-  --navbar-bg:rgba(255,255,255,.84);
-}
-
-
-
-
+});
 
 /* =========================================================
    PAGE BACKGROUND
@@ -1504,243 +1244,6 @@ textarea {
     font-weight: 600;
 }
 
-
-/* =========================================================
-   THEME SWITCHER
-========================================================= */
-
-.theme-switcher {
-    position: fixed;
-
-    right: 25px;
-
-    bottom: 25px;
-
-    z-index: 2147483647;
-
-    font-family: inherit;
-}
-
-.theme-toggle {
-    width: 64px;
-    height: 64px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border: 2px solid var(--main-color);
-
-    border-radius: 50%;
-
-    background: #0b1722;
-
-    color: var(--main-color);
-
-    cursor: pointer;
-
-    outline: none;
-
-    box-shadow:
-        0 0 12px var(--shadow-color),
-        0 0 30px var(--shadow-color);
-
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.theme-icon {
-    width: 28px;
-    height: 28px;
-
-    transition: transform 0.5s ease;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.08);
-
-    background: var(--main-color);
-
-    color: #000;
-
-    box-shadow:
-        0 0 18px var(--main-color),
-        0 0 35px var(--shadow-color);
-}
-
-.theme-toggle:hover .theme-icon {
-    transform: rotate(180deg);
-}
-
-
-/* =========================================================
-   THEME PANEL
-========================================================= */
-
-.theme-panel {
-    position: absolute;
-
-    right: 0;
-
-    bottom: 75px;
-
-    width: 225px;
-
-    padding: 12px;
-
-    background: #101820;
-
-    border: 1px solid var(--main-color);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.45),
-        0 0 25px var(--shadow-color);
-
-    opacity: 0;
-
-    visibility: hidden;
-
-    transform: translateY(12px);
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        visibility 0.25s ease;
-}
-
-.theme-panel.active {
-    opacity: 1;
-
-    visibility: visible;
-
-    transform: translateY(0);
-}
-
-.theme-btn {
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 12px 13px;
-
-    margin: 3px 0;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: transparent;
-
-    color: #ffffff !important;
-
-    font-family: "Outfit", sans-serif;
-
-    font-size: 15px;
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    text-align: left;
-
-    transition:
-        background 0.25s ease,
-        color 0.25s ease,
-        transform 0.25s ease;
-}
-
-.theme-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
-
-    color: var(--main-color) !important;
-
-    transform: translateX(4px);
-}
-
-.theme-dot {
-    width: 19px;
-    height: 19px;
-
-    display: inline-block;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    box-shadow: 0 0 10px currentColor;
-}
-
-
-/* =========================================================
-   THEME DOT COLORS
-========================================================= */
-
-.theme-dot.green {
-    background: #00e45b;
-
-    color: #00e45b;
-}
-
-.theme-dot.blue {
-    background: #ffd60a;
-
-    color: #ffd60a;
-}
-
-.theme-dot.purple {
-    background: #a78bfa;
-
-    color: #a78bfa;
-}
-
-.theme-dot.cyan {
-    background: #5eead4;
-
-    color: #5eead4;
-}
-
-.theme-dot.orange {
-    background: #ff9f43;
-
-    color: #ff9f43;
-}
-
-.theme-dot.red-black {
-    background: #f11629;
-
-    color: #f11629;
-}
-
-.theme-dot.red {
-    background: #fb7185;
-
-    color: #fb7185;
-}
-
-.theme-dot.brown {
-    background: #B87333;
-
-    color: #B87333;
-}
-
-.theme-dot.green{background:#00a94f;color:#00a94f}
-.theme-dot.red-black{background:#f11629;color:#f11629}
-.theme-dot.yellow{background:#d6a900;color:#d6a900}
-.theme-dot.purple{background:#7c3aed;color:#7c3aed}
-.theme-dot.orange{background:#ea6c0b;color:#ea6c0b}
-.theme-dot.cyan{background:#159bd3;color:#159bd3}
-.theme-dot.brown{background:#B87333;color:#B87333}
 
 
 /* =========================================================
