@@ -396,69 +396,7 @@
     </div>
   </div>
 
-  // =====================================================
-// THEME SWITCHER
-// =====================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-    const themeToggle = document.querySelector(".theme-toggle");
-    const themePanel = document.querySelector(".theme-panel");
-    const themeButtons = document.querySelectorAll(".theme-btn");
-
-    if (!themeToggle || !themePanel) {
-        console.error("Theme switcher elements not found.");
-        return;
-    }
-
-    // Open / close theme panel
-    themeToggle.addEventListener("click", (event) => {
-        event.stopPropagation();
-        themePanel.classList.toggle("active");
-    });
-
-    // Theme selection
-    themeButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            event.stopPropagation();
-
-            const selectedTheme = button.dataset.theme;
-
-            if (!selectedTheme) return;
-
-            document.documentElement.setAttribute(
-                "data-theme",
-                selectedTheme
-            );
-
-            localStorage.setItem(
-                "portfolioTheme",
-                selectedTheme
-            );
-
-            themePanel.classList.remove("active");
-        });
-    });
-
-    // Load saved theme
-    const savedTheme =
-        localStorage.getItem("portfolioTheme") || "green";
-
-    document.documentElement.setAttribute(
-        "data-theme",
-        savedTheme
-    );
-
-    // Close panel when clicking outside
-    document.addEventListener("click", (event) => {
-        if (
-            !themePanel.contains(event.target) &&
-            !themeToggle.contains(event.target)
-        ) {
-            themePanel.classList.remove("active");
-        }
-    });
-});
-
+ 
 
 
               
