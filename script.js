@@ -14,8 +14,9 @@
 <body>
 
 
-  /* =========================================================
-   FINAL PORTFOLIO THEME SWITCHER
+  
+/* =========================================================
+    THEME COLOR SWITCHER
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -24,127 +25,74 @@ document.addEventListener("DOMContentLoaded", function () {
     const themePanel = document.getElementById("themePanel");
     const themeButtons = document.querySelectorAll(".theme-btn");
 
-    console.log("=================================");
-    console.log("Theme Switcher Loaded");
-    console.log("Toggle:", themeToggle);
-    console.log("Panel:", themePanel);
-    console.log("Buttons:", themeButtons.length);
-    console.log("=================================");
 
+    /* ---------------------------------------------
+      Safety Check
+    --------------------------------------------- */
 
-    /* -----------------------------------------------------
-       SAFETY CHECK
-    ----------------------------------------------------- */
-
-    if (!themeToggle) {
-        console.error("Theme Toggle button not found.");
+    if (!themeToggle || !themePanel) {
+        console.error("Theme switcher elements not found.");
         return;
     }
 
-    if (!themePanel) {
-        console.error("Theme Panel not found.");
-        return;
-    }
-
-
-    /* -----------------------------------------------------
-       AVAILABLE THEMES
-    ----------------------------------------------------- */
-
-    const validThemes = [
-        "green-black",
-        "yellow-black",
-        "orange-black",
-        "cyan-black",
-        "red-black",
-        "purple-black",
-        "ice-blue-black"
-    ];
-
-
-    /* -----------------------------------------------------
-       APPLY THEME
-    ----------------------------------------------------- */
-
-    function applyTheme(theme) {
-
-        if (!validThemes.includes(theme)) {
-            theme = "green-black";
-        }
-
-        document.documentElement.setAttribute(
-            "data-theme",
-            theme
-        );
-
-        localStorage.setItem(
-            "portfolioTheme",
-            theme
-        );
-
-        console.log("Theme applied:", theme);
-    }
-
-
-    /* -----------------------------------------------------
-       LOAD SAVED THEME
-    ----------------------------------------------------- */
+    /* ---------------------------------------------
+      Load Saved Theme
+    --------------------------------------------- */
 
     const savedTheme =
         localStorage.getItem("portfolioTheme");
 
-    applyTheme(
-        validThemes.includes(savedTheme)
-            ? savedTheme
-            : "green-black"
-    );
+    if (savedTheme) {
 
-
-    /* -----------------------------------------------------
-       OPEN / CLOSE THEME PANEL
-    ----------------------------------------------------- */
-
-    themeToggle.addEventListener("click", function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        themePanel.classList.toggle("active");
-
-        console.log(
-            "Theme panel:",
-            themePanel.classList.contains("active")
-                ? "OPEN"
-                : "CLOSED"
+        document.documentElement.setAttribute(
+            "data-theme",
+            savedTheme
         );
 
+    } else {
+        document.documentElement.setAttribute(
+            "data-theme",
+            "green"
+        );
+
+    }
+
+
+    /* ---------------------------------------------
+        Open / Close Theme Panel
+    --------------------------------------------- */
+
+    themeToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        themePanel.classList.toggle("active");
     });
 
-
-    /* -----------------------------------------------------
-       THEME BUTTONS
-    ----------------------------------------------------- */
+    /* ---------------------------------------------
+        Select Theme
+    --------------------------------------------- */
 
     themeButtons.forEach(function (button) {
-
         button.addEventListener("click", function (event) {
-
-            event.preventDefault();
             event.stopPropagation();
-
             const selectedTheme =
                 button.getAttribute("data-theme");
 
-            console.log(
-                "Selected theme:",
+            /* Apply theme */
+
+            document.documentElement.setAttribute(
+                "data-theme",
                 selectedTheme
             );
 
-            if (!selectedTheme) {
-                return;
-            }
 
-            applyTheme(selectedTheme);
+            /* Save theme */
+
+            localStorage.setItem(
+                "portfolioTheme",
+                selectedTheme
+            );
+
+            /* Close panel */
 
             themePanel.classList.remove("active");
 
@@ -153,9 +101,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* -----------------------------------------------------
-       CLICK OUTSIDE
-    ----------------------------------------------------- */
+    /* ---------------------------------------------
+       Close Panel When Clicking Outside
+    --------------------------------------------- */
 
     document.addEventListener("click", function (event) {
 
@@ -170,23 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-
-    /* -----------------------------------------------------
-       ESCAPE KEY
-    ----------------------------------------------------- */
-
-    document.addEventListener("keydown", function (event) {
-
-        if (event.key === "Escape") {
-
-            themePanel.classList.remove("active");
-
-        }
-
-    });
-
 });
-
 
   <div class="page-bg"></div>
 
