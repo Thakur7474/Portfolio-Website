@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shiv Singh - Full Stack Web Developer Portfolio">
+  <title>Shiv Singh | Full Stack Web Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- ================= THEME SWITCHER ================= -->
+<div class="theme-switcher">
+
+    <button
+        id="themeToggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Change theme"
+        title="Change theme"
+    >
+        <svg
+            class="theme-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <circle
+                cx="12"
+                cy="12"
+                r="4"
+                stroke="currentColor"
+                stroke-width="2"
+            />
+
+            <path
+                d="M12 2V4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M12 20V22"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M2 12H4"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M20 12H22"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M4.93 4.93L6.34 6.34"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M17.66 17.66L19.07 19.07"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M4.93 19.07L6.34 17.66"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+
+            <path
+                d="M17.66 6.34L19.07 4.93"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+            />
+        </svg>
+    </button>
+
+
+    <div id="themePanel" class="theme-panel">
+
+        <button class="theme-btn" data-theme="green" type="button">
+            <span class="theme-dot green"></span>
+            Primary Green
+        </button>
+
+        <button class="theme-btn" data-theme="blue" type="button">
+            <span class="theme-dot blue"></span>
+            Yellow Black
+        </button>
+
+        <button class="theme-btn" data-theme="orange" type="button">
+            <span class="theme-dot orange"></span>
+            Orange Black
+        </button>
+
+        <button class="theme-btn" data-theme="red" type="button">
+            <span class="theme-dot cyan"></span>
+            Cyan Black
+        </button>
+
+        <button class="theme-btn" data-theme="red-black" type="button">
+            <span class="theme-dot red-black"></span>
+            Red Black
+        </button>
+
+        <button class="theme-btn" data-theme="purple" type="button">
+            <span class="theme-dot purple"></span>
+            Purple Black
+        </button>
+
+        <button class="theme-btn" data-theme="cyan" type="button">
+            <span class="theme-dot red"></span>
+            Pink Black
+        </button>
+
+    </div>
+
+</div>
+
+
+  <div class="page-bg"></div>
+
+  <header class="navbar" id="navbar">
+    <a class="brand" href="#home" aria-label="Shiv Singh home">
+      <span class="brand-mark">S</span>
+      <span>Shiv Singh</span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About Me</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pages">Pages</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#contact" class="outline-btn nav-cta">Get In Touch</a>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero section" id="home">
+      <div class="hero-photo"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-grid">
+        <div class="hero-left reveal">
+          <p class="eyebrow">FULL STACK DEVELOPER</p>
+          <h1>
+            <span>Build</span>
+            <span class="outline">Digital</span>
+            <span>Futures</span>
+          </h1>
+        </div>
+
+        <div class="hero-right reveal">
+          <h2>Innovate. Develop.<br><span>Succeed. Fast.</span></h2>
+          <p>
+            I build modern, scalable and user-friendly web applications
+            that turn ideas into practical digital products using clean code
+            and modern technologies.
+          </p>
+          <div class="hero-actions">
+            <a class="solid-btn" href="#contact">Hire Me <span>→</span></a>
+            <a class="outline-btn" href="#portfolio">View My Work</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="availability">
+        <span class="dot"></span>
+        <span>Shiv Singh — Full Stack Web Developer</span>
+      </div>
+
+      <a class="floating-chat" href="#contact" aria-label="Go to contact">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section standard-section" id="about">
+      <div class="container two-col">
+        <div class="section-heading reveal">
+          <p class="eyebrow">ABOUT ME</p>
+          <h2>Turning ideas into <span>useful products.</span></h2>
+        </div>
+        <div class="about-copy reveal">
+          <p>
+            I'm Shiv Singh, a B.Tech Computer Science student and aspiring
+            full stack developer focused on building practical web experiences.
+            I enjoy understanding how websites work, how data is stored and
+            how software can solve real problems.
+          </p>
+          <p>
+            My current focus includes frontend development, backend APIs,
+            databases, AI-powered applications and placement-ready software
+            projects.
+          </p>
+          <div class="about-meta">
+            <div><strong>Focus</strong><span>Full Stack + AI</span></div>
+            <div><strong>Education</strong><span>B.Tech CSE</span></div>
+            <div><strong>Approach</strong><span>Clean & Practical</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section standard-section dark-section" id="services">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow">SERVICES</p>
+          <h2>What I <span>build.</span></h2>
+          <p class="section-subtitle">Modern development services for useful, responsive and scalable digital products.</p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card reveal">
+            <span class="card-number">01</span>
+            <h3>Frontend Development</h3>
+            <p>Responsive interfaces with HTML, CSS, JavaScript, React and modern component-based UI.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-number">02</span>
+            <h3>Full Stack Development</h3>
+            <p>Complete web applications with frontend, backend APIs, authentication and databases.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-number">03</span>
+            <h3>Backend & APIs</h3>
+            <p>REST APIs, Express.js services, server-side logic, sessions and database integration.</p>
+          </article>
+          <article class="service-card reveal">
+            <span class="card-number">04</span>
+            <h3>AI Integration</h3>
+            <p>AI-assisted features such as resume analysis, intelligent recommendations and automation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section standard-section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">TECH STACK</p>
+          <h2>Tools I <span>work with.</span></h2>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill">HTML5</div>
+          <div class="skill">CSS3</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">React</div>
+          <div class="skill">Node.js</div>
+          <div class="skill">Express</div>
+          <div class="skill">MongoDB</div>
+          <div class="skill">SQL</div>
+          <div class="skill">Python</div>
+          <div class="skill">Java</div>
+          <div class="skill">Git & GitHub</div>
+          <div class="skill">REST APIs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="section standard-section dark-section" id="portfolio">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow">PORTFOLIO</p>
+          <h2>Selected <span>projects.</span></h2>
+          <p class="section-subtitle">A few projects that represent my current development journey.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <div class="project-top"><span>01</span><span>FULL STACK</span></div>
+            <h3>WanderLust</h3>
+            <p>A travel listing web application with listings, reviews, authentication, sessions and MongoDB integration.</p>
+            <div class="tags"><span>Express</span><span>MongoDB</span><span>EJS</span></div>
+            <a href="https://wanderlust-stayfinder-tsym.onrender.com/listings" class="https://wanderlust-stayfinder-tsym.onrender.com/listings" data-demo="WanderLust"> <span class="color">View Project ↗</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top"><span>02</span><span>AI</span></div>
+            <h3>AI Resume Analyzer</h3>
+            <p>An AI-powered resume analysis experience that evaluates uploaded resumes and returns structured feedback.</p>
+            <div class="tags"><span>React</span><span>PDF</span><span>AI</span></div>
+            <a href="#" class="project-link" data-demo="AI Resume Analyzer"><span class="color">View Project ↗</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top"><span>03</span><span>REACT</span></div>
+            <h3>PocketBot</h3>
+            <p>PocketBot is an AI-powered personal assistant for productivity, planning, travel, and everyday tasks.</p>
+            <div class="tags"><span>React</span><span>Vite</span><span>Tailwindcss</span></div>
+            <a href="#" class="project-link" data-demo="PocketBot"><span class="color">View Project ↗</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top"><span>04</span><span>Vite / Tailwindcss</span></div>
+            <h3>Melodia Music Player</h3>
+            <p>Melodia Music Player is a modern music streaming platform offering smooth playback, personalized playlists, intuitive navigation, and an engaging user-friendly listening experience.</p>
+            <div class="tags"><span>React</span><span>MongoDB</span><span>REST APIs</span></div>
+            <a href="https://melodia-music-player-vert.vercel.app/" class="https://melodia-music-player-vert.vercel.app/" data-demo="Melodia Music Player"><span class="color">View Project ↗</span></a>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-top"><span>05</span><span>OpenTDB</span></div>
+            <h3>Quiz Game</h3>
+            <p>Quiz Game is an interactive web-based application featuring engaging quizzes, dynamic questions, score tracking, and a user-friendly interface for enjoyable learning.</p>
+            <div class="tags"><span>HTML5</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://thakur7474.github.io/Quiz-Master/" class="https://thakur7474.github.io/Quiz-Master/" data-demo="Quiz Game"><span class="color">View Project ↗</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGES / RESUME -->
+    <section class="section standard-section" id="pages">
+      <div class="container resume-box reveal">
+        <div>
+          <p class="eyebrow">RESUME</p>
+          <h2>Let's build something <span>meaningful.</span></h2>
+          <p>Download my resume to see my education, technical skills and project experience.</p>
+        </div>
+        <a class="solid-btn" href="assets/Resume.pdf" download>Download Resume ↓</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section standard-section dark-section" id="contact">
+      <div class="container contact-grid">
+        <div class="section-heading reveal">
+          <p class="eyebrow">GET IN TOUCH</p>
+          <h2>Have an idea?<br><span>Let's talk.</span></h2>
+          <p class="section-subtitle">Use the form or connect with me through the links below.</p>
+          <div class="socials">
+            <a href="https://github.com/Thakur7474" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="https://www.linkedin.com/in/shiv-singh-aa5a28323" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a href="mailto:thakur1262007@gmail.com">Email ↗</a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm">
+          <label>Name<input type="text" id="name" placeholder="Your name" required></label>
+          <label>Email<input type="email" id="email" placeholder="your@email.com" required></label>
+          <label>Message<textarea id="message" rows="6" placeholder="Tell me about your project..." required></textarea></label>
+          <button class="solid-btn" type="submit">Send Message →</button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <span class="brand-mark small">S</span>
+      <span>Shiv Singh</span>
+    </div>
+    <p>© <span id="year"></span> Shiv Singh. Built with clean code.</p>
+  </footer>
+
+  <div class="modal" id="projectModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose">×</button>
+      <p class="eyebrow">PROJECT</p>
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
