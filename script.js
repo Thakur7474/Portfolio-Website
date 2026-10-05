@@ -13,129 +13,179 @@
 </head>
 <body>
 
-  <!-- ================= THEME SWITCHER ================= -->
-<div class="theme-switcher">
 
-    <button
-        id="themeToggle"
-        class="theme-toggle"
-        type="button"
-        aria-label="Change theme"
-        title="Change theme"
-    >
-        <svg
-            class="theme-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <circle
-                cx="12"
-                cy="12"
-                r="4"
-                stroke="currentColor"
-                stroke-width="2"
-            />
+  /* =========================================================
+   FINAL PORTFOLIO THEME SWITCHER
+========================================================= */
 
-            <path
-                d="M12 2V4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+document.addEventListener("DOMContentLoaded", function () {
 
-            <path
-                d="M12 20V22"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+    const themeToggle = document.getElementById("themeToggle");
+    const themePanel = document.getElementById("themePanel");
+    const themeButtons = document.querySelectorAll(".theme-btn");
 
-            <path
-                d="M2 12H4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M20 12H22"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M4.93 4.93L6.34 6.34"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M17.66 17.66L19.07 19.07"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M4.93 19.07L6.34 17.66"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M17.66 6.34L19.07 4.93"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-        </svg>
-    </button>
+    console.log("=================================");
+    console.log("Theme Switcher Loaded");
+    console.log("Toggle:", themeToggle);
+    console.log("Panel:", themePanel);
+    console.log("Buttons:", themeButtons.length);
+    console.log("=================================");
 
 
-    <div id="themePanel" class="theme-panel">
+    /* -----------------------------------------------------
+       SAFETY CHECK
+    ----------------------------------------------------- */
 
-        <button class="theme-btn" data-theme="green" type="button">
-            <span class="theme-dot green"></span>
-            Primary Green
-        </button>
+    if (!themeToggle) {
+        console.error("Theme Toggle button not found.");
+        return;
+    }
 
-        <button class="theme-btn" data-theme="blue" type="button">
-            <span class="theme-dot blue"></span>
-            Yellow Black
-        </button>
+    if (!themePanel) {
+        console.error("Theme Panel not found.");
+        return;
+    }
 
-        <button class="theme-btn" data-theme="orange" type="button">
-            <span class="theme-dot orange"></span>
-            Orange Black
-        </button>
 
-        <button class="theme-btn" data-theme="red" type="button">
-            <span class="theme-dot cyan"></span>
-            Cyan Black
-        </button>
+    /* -----------------------------------------------------
+       AVAILABLE THEMES
+    ----------------------------------------------------- */
 
-        <button class="theme-btn" data-theme="red-black" type="button">
-            <span class="theme-dot red-black"></span>
-            Red Black
-        </button>
+    const validThemes = [
+        "green-black",
+        "yellow-black",
+        "orange-black",
+        "cyan-black",
+        "red-black",
+        "purple-black",
+        "ice-blue-black"
+    ];
 
-        <button class="theme-btn" data-theme="purple" type="button">
-            <span class="theme-dot purple"></span>
-            Purple Black
-        </button>
 
-        <button class="theme-btn" data-theme="cyan" type="button">
-            <span class="theme-dot red"></span>
-            Pink Black
-        </button>
+    /* -----------------------------------------------------
+       APPLY THEME
+    ----------------------------------------------------- */
 
-    </div>
+    function applyTheme(theme) {
 
-</div>
+        if (!validThemes.includes(theme)) {
+            theme = "green-black";
+        }
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+        localStorage.setItem(
+            "portfolioTheme",
+            theme
+        );
+
+        console.log("Theme applied:", theme);
+    }
+
+
+    /* -----------------------------------------------------
+       LOAD SAVED THEME
+    ----------------------------------------------------- */
+
+    const savedTheme =
+        localStorage.getItem("portfolioTheme");
+
+    applyTheme(
+        validThemes.includes(savedTheme)
+            ? savedTheme
+            : "green-black"
+    );
+
+
+    /* -----------------------------------------------------
+       OPEN / CLOSE THEME PANEL
+    ----------------------------------------------------- */
+
+    themeToggle.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        themePanel.classList.toggle("active");
+
+        console.log(
+            "Theme panel:",
+            themePanel.classList.contains("active")
+                ? "OPEN"
+                : "CLOSED"
+        );
+
+    });
+
+
+    /* -----------------------------------------------------
+       THEME BUTTONS
+    ----------------------------------------------------- */
+
+    themeButtons.forEach(function (button) {
+
+        button.addEventListener("click", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const selectedTheme =
+                button.getAttribute("data-theme");
+
+            console.log(
+                "Selected theme:",
+                selectedTheme
+            );
+
+            if (!selectedTheme) {
+                return;
+            }
+
+            applyTheme(selectedTheme);
+
+            themePanel.classList.remove("active");
+
+        });
+
+    });
+
+
+    /* -----------------------------------------------------
+       CLICK OUTSIDE
+    ----------------------------------------------------- */
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !themePanel.contains(event.target) &&
+            !themeToggle.contains(event.target)
+        ) {
+
+            themePanel.classList.remove("active");
+
+        }
+
+    });
+
+
+    /* -----------------------------------------------------
+       ESCAPE KEY
+    ----------------------------------------------------- */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            themePanel.classList.remove("active");
+
+        }
+
+    });
+
+});
 
 
   <div class="page-bg"></div>
