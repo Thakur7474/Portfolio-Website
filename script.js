@@ -379,8 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 
 
-
-  /* =========================================================
+/* =========================================================
    FINAL PORTFOLIO THEME SWITCHER
 ========================================================= */
 
@@ -552,9 +551,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-
- 
-
 
               
 
