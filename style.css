@@ -1,400 +1,2001 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shiv Singh - Full Stack Web Developer Portfolio">
-  <title>Shiv Singh | Full Stack Web Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:wght@100..900&display=swap');
 
-</head>
-<body>
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
 
-  <!-- ================= THEME SWITCHER ================= -->
-<div class="theme-switcher">
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <button
-        id="themeToggle"
-        class="theme-toggle"
-        type="button"
-        aria-label="Change theme"
-        title="Change theme"
-    >
-        <svg
-            class="theme-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <circle
-                cx="12"
-                cy="12"
-                r="4"
-                stroke="currentColor"
-                stroke-width="2"
-            />
+html {
+    scroll-behavior: smooth;
+}
 
-            <path
-                d="M12 2V4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+body {
+    font-family: "Outfit", sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-            <path
-                d="M12 20V22"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+body.menu-open {
+    overflow: hidden;
+}
 
-            <path
-                d="M2 12H4"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
-            <path
-                d="M20 12H22"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M4.93 4.93L6.34 6.34"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M17.66 17.66L19.07 19.07"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M4.93 19.07L6.34 17.66"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-
-            <path
-                d="M17.66 6.34L19.07 4.93"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-        </svg>
-    </button>
+button,
+input,
+textarea {
+    font: inherit;
+}
 
 
-    <div id="themePanel" class="theme-panel">
+/* =========================================================
+   DEFAULT THEME — GREEN + BLACK
+========================================================= */
 
-        <button class="theme-btn" data-theme="green" type="button">
-            <span class="theme-dot green"></span>
-            Primary Green
-        </button>
+:root {
+    --bg-color: #050505;
+    --second-bg-color: #0b0b0b;
+    --card-color: #101010;
 
-        <button class="theme-btn" data-theme="blue" type="button">
-            <span class="theme-dot blue"></span>
-            Yellow Black
-        </button>
+    --text-color: #ededed;
+    --heading-color: #ffffff;
+    --muted-color: #a3a3a3;
 
-        <button class="theme-btn" data-theme="orange" type="button">
-            <span class="theme-dot orange"></span>
-            Orange Black
-        </button>
+    --main-color: #00e45b;
+    --main-dark: #00a844;
 
-        <button class="theme-btn" data-theme="red" type="button">
-            <span class="theme-dot cyan"></span>
-            Cyan Black
-        </button>
+    --line-color: #202020;
+    --border-color: rgba(0, 228, 91, 0.38);
 
-        <button class="theme-btn" data-theme="red-black" type="button">
-            <span class="theme-dot red-black"></span>
-            Red Black
-        </button>
+    --soft-color: rgba(0, 228, 91, 0.08);
+    --shadow-color: rgba(0, 228, 91, 0.25);
 
-        <button class="theme-btn" data-theme="purple" type="button">
-            <span class="theme-dot purple"></span>
-            Purple Black
-        </button>
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.30);
 
-        <button class="theme-btn" data-theme="cyan" type="button">
-            <span class="theme-dot red"></span>
-            Pink Black
-        </button>
+    --input-bg: #0d0d0d;
+    --button-text: #050505;
 
-    </div>
-
-</div>
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
 
-  <div class="page-bg"></div>
+/* =========================================================
+   GREEN + BLACK
+========================================================= */
 
-  <header class="navbar" id="navbar">
-    <a class="brand" href="#home" aria-label="Shiv Singh home">
-      <span class="brand-mark">S</span>
-      <span>Shiv Singh</span>
-    </a>
+[data-theme="green"] {
+    --bg-color: #050505;
+    --second-bg-color: #0b0b0b;
+    --card-color: #101010;
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
-      <span></span><span></span><span></span>
-    </button>
+    --text-color: #ededed;
+    --heading-color: #ffffff;
+    --muted-color: #a3a3a3;
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About Me</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#pages">Pages</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    --main-color: #00e45b;
+    --main-dark: #00a844;
 
-    <a href="#contact" class="outline-btn nav-cta">Get In Touch</a>
-  </header>
+    --line-color: #202020;
+    --border-color: rgba(0, 228, 91, 0.38);
 
-  <main>
-    <!-- HERO -->
-    <section class="hero section" id="home">
-      <div class="hero-photo"></div>
-      <div class="hero-overlay"></div>
+    --soft-color: rgba(0, 228, 91, 0.08);
+    --shadow-color: rgba(0, 228, 91, 0.25);
 
-      <div class="hero-grid">
-        <div class="hero-left reveal">
-          <p class="eyebrow">FULL STACK DEVELOPER</p>
-          <h1>
-            <span>Build</span>
-            <span class="outline">Digital</span>
-            <span>Futures</span>
-          </h1>
-        </div>
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.30);
 
-        <div class="hero-right reveal">
-          <h2>Innovate. Develop.<br><span>Succeed. Fast.</span></h2>
-          <p>
-            I build modern, scalable and user-friendly web applications
-            that turn ideas into practical digital products using clean code
-            and modern technologies.
-          </p>
-          <div class="hero-actions">
-            <a class="solid-btn" href="#contact">Hire Me <span>→</span></a>
-            <a class="outline-btn" href="#portfolio">View My Work</a>
-          </div>
-        </div>
-      </div>
+    --input-bg: #0d0d0d;
+    --button-text: #050505;
 
-      <div class="availability">
-        <span class="dot"></span>
-        <span>Shiv Singh — Full Stack Web Developer</span>
-      </div>
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
-      <a class="floating-chat" href="#contact" aria-label="Go to contact">
-        <span></span>
-      </a>
-    </section>
 
-    <!-- ABOUT -->
-    <section class="section standard-section" id="about">
-      <div class="container two-col">
-        <div class="section-heading reveal">
-          <p class="eyebrow">ABOUT ME</p>
-          <h2>Turning ideas into <span>useful products.</span></h2>
-        </div>
-        <div class="about-copy reveal">
-          <p>
-            I'm Shiv Singh, a B.Tech Computer Science student and aspiring
-            full stack developer focused on building practical web experiences.
-            I enjoy understanding how websites work, how data is stored and
-            how software can solve real problems.
-          </p>
-          <p>
-            My current focus includes frontend development, backend APIs,
-            databases, AI-powered applications and placement-ready software
-            projects.
-          </p>
-          <div class="about-meta">
-            <div><strong>Focus</strong><span>Full Stack + AI</span></div>
-            <div><strong>Education</strong><span>B.Tech CSE</span></div>
-            <div><strong>Approach</strong><span>Clean & Practical</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+/* =========================================================
+   YELLOW + BLACK
+========================================================= */
 
-    <!-- SERVICES -->
-    <section class="section standard-section dark-section" id="services">
-      <div class="container">
-        <div class="section-heading center reveal">
-          <p class="eyebrow">SERVICES</p>
-          <h2>What I <span>build.</span></h2>
-          <p class="section-subtitle">Modern development services for useful, responsive and scalable digital products.</p>
-        </div>
+[data-theme="blue"] {
+    --bg-color: #050505;
+    --second-bg-color: #0d0d0d;
+    --card-color: #121212;
 
-        <div class="service-grid">
-          <article class="service-card reveal">
-            <span class="card-number">01</span>
-            <h3>Frontend Development</h3>
-            <p>Responsive interfaces with HTML, CSS, JavaScript, React and modern component-based UI.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">02</span>
-            <h3>Full Stack Development</h3>
-            <p>Complete web applications with frontend, backend APIs, authentication and databases.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">03</span>
-            <h3>Backend & APIs</h3>
-            <p>REST APIs, Express.js services, server-side logic, sessions and database integration.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">04</span>
-            <h3>AI Integration</h3>
-            <p>AI-assisted features such as resume analysis, intelligent recommendations and automation.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    --text-color: #f5f5f5;
+    --heading-color: #ffffff;
+    --muted-color: #a8a8a8;
 
-    <!-- SKILLS -->
-    <section class="section standard-section" id="skills">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="eyebrow">TECH STACK</p>
-          <h2>Tools I <span>work with.</span></h2>
-        </div>
+    --main-color: #ffd60a;
+    --main-dark: #d6ae00;
 
-        <div class="skills-grid">
-          <div class="skill">HTML5</div>
-          <div class="skill">CSS3</div>
-          <div class="skill">JavaScript</div>
-          <div class="skill">React</div>
-          <div class="skill">Node.js</div>
-          <div class="skill">Express</div>
-          <div class="skill">MongoDB</div>
-          <div class="skill">SQL</div>
-          <div class="skill">Python</div>
-          <div class="skill">Java</div>
-          <div class="skill">Git & GitHub</div>
-          <div class="skill">REST APIs</div>
-        </div>
-      </div>
-    </section>
+    --line-color: #292929;
+    --border-color: rgba(255, 214, 10, 0.40);
 
-    <!-- PORTFOLIO -->
-    <section class="section standard-section dark-section" id="portfolio">
-      <div class="container">
-        <div class="section-heading center reveal">
-          <p class="eyebrow">PORTFOLIO</p>
-          <h2>Selected <span>projects.</span></h2>
-          <p class="section-subtitle">A few projects that represent my current development journey.</p>
-        </div>
+    --soft-color: rgba(255, 214, 10, 0.08);
+    --shadow-color: rgba(255, 214, 10, 0.23);
 
-        <div class="project-grid">
-          <article class="project-card reveal">
-            <div class="project-top"><span>01</span><span>FULL STACK</span></div>
-            <h3>WanderLust</h3>
-            <p>A travel listing web application with listings, reviews, authentication, sessions and MongoDB integration.</p>
-            <div class="tags"><span>Express</span><span>MongoDB</span><span>EJS</span></div>
-            <a href="https://wanderlust-stayfinder-tsym.onrender.com/listings" class="https://wanderlust-stayfinder-tsym.onrender.com/listings" data-demo="WanderLust"> <span class="color">View Project ↗</span></a>
-          </article>
+    --hero-overlay-1: rgba(0, 0, 0, 0.98);
+    --hero-overlay-2: rgba(0, 0, 0, 0.82);
+    --hero-overlay-3: rgba(0, 0, 0, 0.32);
 
-          <article class="project-card reveal">
-            <div class="project-top"><span>02</span><span>AI</span></div>
-            <h3>AI Resume Analyzer</h3>
-            <p>An AI-powered resume analysis experience that evaluates uploaded resumes and returns structured feedback.</p>
-            <div class="tags"><span>React</span><span>PDF</span><span>AI</span></div>
-            <a href="#" class="project-link" data-demo="AI Resume Analyzer"><span class="color">View Project ↗</span></a>
-          </article>
+    --input-bg: #0e0e0e;
+    --button-text: #050505;
 
-          <article class="project-card reveal">
-            <div class="project-top"><span>03</span><span>REACT</span></div>
-            <h3>PocketBot</h3>
-            <p>PocketBot is an AI-powered personal assistant for productivity, planning, travel, and everyday tasks.</p>
-            <div class="tags"><span>React</span><span>Vite</span><span>Tailwindcss</span></div>
-            <a href="#" class="project-link" data-demo="PocketBot"><span class="color">View Project ↗</span></a>
-          </article>
+    --navbar-bg: rgba(5, 5, 5, 0.78);
+}
 
-          <article class="project-card reveal">
-            <div class="project-top"><span>04</span><span>Vite / Tailwindcss</span></div>
-            <h3>Melodia Music Player</h3>
-            <p>Melodia Music Player is a modern music streaming platform offering smooth playback, personalized playlists, intuitive navigation, and an engaging user-friendly listening experience.</p>
-            <div class="tags"><span>React</span><span>MongoDB</span><span>REST APIs</span></div>
-            <a href="https://melodia-music-player-vert.vercel.app/" class="https://melodia-music-player-vert.vercel.app/" data-demo="Melodia Music Player"><span class="color">View Project ↗</span></a>
-          </article>
 
-          <article class="project-card reveal">
-            <div class="project-top"><span>05</span><span>OpenTDB</span></div>
-            <h3>Quiz Game</h3>
-            <p>Quiz Game is an interactive web-based application featuring engaging quizzes, dynamic questions, score tracking, and a user-friendly interface for enjoyable learning.</p>
-            <div class="tags"><span>HTML5</span><span>CSS</span><span>JavaScript</span></div>
-            <a href="https://thakur7474.github.io/Quiz-Master/" class="https://thakur7474.github.io/Quiz-Master/" data-demo="Quiz Game"><span class="color">View Project ↗</span></a>
-          </article>
-        </div>
-      </div>
-    </section>
+/* =========================================================
+   VIOLET + DEEP NAVY
+========================================================= */
 
-    <!-- PAGES / RESUME -->
-    <section class="section standard-section" id="pages">
-      <div class="container resume-box reveal">
-        <div>
-          <p class="eyebrow">RESUME</p>
-          <h2>Let's build something <span>meaningful.</span></h2>
-          <p>Download my resume to see my education, technical skills and project experience.</p>
-        </div>
-        <a class="solid-btn" href="assets/Resume.pdf" download>Download Resume ↓</a>
-      </div>
-    </section>
+[data-theme="purple"] {
+    --bg-color: #0b0a16;
+    --second-bg-color: #121026;
+    --card-color: #17152d;
 
-    <!-- CONTACT -->
-    <section class="section standard-section dark-section" id="contact">
-      <div class="container contact-grid">
-        <div class="section-heading reveal">
-          <p class="eyebrow">GET IN TOUCH</p>
-          <h2>Have an idea?<br><span>Let's talk.</span></h2>
-          <p class="section-subtitle">Use the form or connect with me through the links below.</p>
-          <div class="socials">
-            <a href="https://github.com/Thakur7474" target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a href="https://www.linkedin.com/in/shiv-singh-aa5a28323" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="mailto:thakur1262007@gmail.com">Email ↗</a>
-          </div>
-        </div>
+    --text-color: #f2efff;
+    --heading-color: #ffffff;
+    --muted-color: #aaa4bf;
 
-        <form class="contact-form reveal" id="contactForm">
-          <label>Name<input type="text" id="name" placeholder="Your name" required></label>
-          <label>Email<input type="email" id="email" placeholder="your@email.com" required></label>
-          <label>Message<textarea id="message" rows="6" placeholder="Tell me about your project..." required></textarea></label>
-          <button class="solid-btn" type="submit">Send Message →</button>
-          <p class="form-note" id="formNote"></p>
-        </form>
-      </div>
-    </section>
-  </main>
+    --main-color: #a78bfa;
+    --main-dark: #7c5ce5;
 
-  <footer class="footer">
-    <div>
-      <span class="brand-mark small">S</span>
-      <span>Shiv Singh</span>
-    </div>
-    <p>© <span id="year"></span> Shiv Singh. Built with clean code.</p>
-  </footer>
+    --line-color: #292640;
+    --border-color: rgba(167, 139, 250, 0.38);
 
-  <div class="modal" id="projectModal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" id="modalClose">×</button>
-      <p class="eyebrow">PROJECT</p>
-      <h2 id="modalTitle"></h2>
-      <p id="modalText"></p>
-    </div>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+    --soft-color: rgba(167, 139, 250, 0.10);
+    --shadow-color: rgba(167, 139, 250, 0.24);
+
+    --hero-overlay-1: rgba(11, 10, 22, 0.72);
+    --hero-overlay-2: rgba(11, 10, 22, 0.48);
+    --hero-overlay-3: rgba(11, 10, 22, 0.12);
+
+    --input-bg: #121026;
+    --button-text: #090812;
+
+    --navbar-bg: rgba(11, 10, 22, 0.78);
+}
+
+
+/* =========================================================
+   MINT + CHARCOAL
+========================================================= */
+
+[data-theme="red"] {
+    --bg-color: #111514;
+    --second-bg-color: #191e1c;
+    --card-color: #202724;
+
+    --text-color: #f1f8f5;
+    --heading-color: #ffffff;
+    --muted-color: #a5b4ae;
+
+    --main-color: #5eead4;
+    --main-dark: #2bbbad;
+
+    --line-color: #303b37;
+    --border-color: rgba(94, 234, 212, 0.36);
+
+    --soft-color: rgba(94, 234, 212, 0.08);
+    --shadow-color: rgba(94, 234, 212, 0.20);
+
+    --hero-overlay-1: rgba(17, 21, 20, 0.98);
+    --hero-overlay-2: rgba(17, 21, 20, 0.84);
+    --hero-overlay-3: rgba(17, 21, 20, 0.35);
+
+    --input-bg: #1b211f;
+    --button-text: #07110f;
+
+    --navbar-bg: rgba(17, 21, 20, 0.82);
+}
+
+
+/* =========================================================
+   ORANGE + DARK WARM CHARCOAL
+========================================================= */
+
+[data-theme="orange"] {
+    --bg-color: #15100b;
+    --second-bg-color: #21170e;
+    --card-color: #281b10;
+
+    --text-color: #fff4e8;
+    --heading-color: #fffaf5;
+    --muted-color: #b9a99a;
+
+    --main-color: #ff9f43;
+    --main-dark: #e87918;
+
+    --line-color: #3b2a1c;
+    --border-color: rgba(255, 159, 67, 0.38);
+
+    --soft-color: rgba(255, 159, 67, 0.10);
+    --shadow-color: rgba(255, 159, 67, 0.23);
+
+    --hero-overlay-1: rgba(21, 16, 11, 0.70);
+    --hero-overlay-2: rgba(21, 16, 11, 0.47);
+    --hero-overlay-3: rgba(21, 16, 11, 0.12);
+
+    --input-bg: #21170e;
+    --button-text: #140d07;
+
+    --navbar-bg: rgba(21, 16, 11, 0.78);
+}
+
+
+/* =========================================================
+   ROSE + BLACK
+========================================================= */
+
+[data-theme="cyan"] {
+    --bg-color: #080808;
+    --second-bg-color: #111111;
+    --card-color: #171717;
+
+    --text-color: #f5f5f5;
+    --heading-color: #ffffff;
+    --muted-color: #a1a1a1;
+
+    --main-color: #fb7185;
+    --main-dark: #df4e63;
+
+    --line-color: #282828;
+    --border-color: rgba(251, 113, 133, 0.38);
+
+    --soft-color: rgba(251, 113, 133, 0.08);
+    --shadow-color: rgba(251, 113, 133, 0.22);
+
+    --hero-overlay-1: rgba(8, 8, 8, 0.98);
+    --hero-overlay-2: rgba(8, 8, 8, 0.84);
+    --hero-overlay-3: rgba(8, 8, 8, 0.32);
+
+    --input-bg: #101010;
+    --button-text: #080808;
+
+    --navbar-bg: rgba(8, 8, 8, 0.80);
+}
+
+/* =========================================================
+   RED + BLACK
+========================================================= */
+
+[data-theme="red-black"] {
+  --bg-color: #050505;
+  --second-bg-color: #0b0b0b;
+  --card-color: #101010;
+
+  --text-color: #f5f5f5;
+  --heading-color: #ffffff;
+  --muted-color: #a3a3a3;
+
+  --main-color: #f11629;
+  --main-dark: #f11629;
+
+  --line-color: #242424;
+  --border-color: rgba(255, 59, 79, 0.40);
+
+  --soft-color: rgba(255, 59, 79, 0.10);
+  --shadow-color: rgba(255, 59, 79, 0.22);
+
+  --hero-overlay-1: rgba(0, 0, 0, 0.86);
+  --hero-overlay-2: rgba(0, 0, 0, 0.58);
+  --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+  --input-bg: #0d0d0d;
+  --button-text: #ffffff;
+  --navbar-bg: rgba(5, 5, 5, 0.88);
+}
+
+
+/* =========================================================
+   PURPLE + BLACK
+========================================================= */
+
+[data-theme="purple-black"] {
+  --bg-color: #050505;
+  --second-bg-color: #0b0b0b;
+  --card-color: #101010;
+
+  --text-color: #f5f5f5;
+  --heading-color: #ffffff;
+  --muted-color: #a3a3a3;
+
+  --main-color: #a855f7;
+  --main-dark: #7e22ce;
+
+  --line-color: #242424;
+  --border-color: rgba(168, 85, 247, 0.40);
+
+  --soft-color: rgba(168, 85, 247, 0.10);
+  --shadow-color: rgba(168, 85, 247, 0.24);
+
+  --hero-overlay-1: rgba(0, 0, 0, 0.86);
+  --hero-overlay-2: rgba(0, 0, 0, 0.58);
+  --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+  --input-bg: #0d0d0d;
+  --button-text: #ffffff;
+  --navbar-bg: rgba(5, 5, 5, 0.88);
+}
+
+
+/* =========================================================
+   ICE BLUE + BLACK
+========================================================= */
+
+[data-theme="ice-blue-black"] {
+  --bg-color: #050505;
+  --second-bg-color: #0b0b0b;
+  --card-color: #101010;
+
+  --text-color: #f5f5f5;
+  --heading-color: #ffffff;
+  --muted-color: #a3a3a3;
+
+  --main-color: #67d5ff;
+  --main-dark: #159bd3;
+
+  --line-color: #242424;
+  --border-color: rgba(103, 213, 255, 0.40);
+
+  --soft-color: rgba(103, 213, 255, 0.10);
+  --shadow-color: rgba(103, 213, 255, 0.22);
+
+  --hero-overlay-1: rgba(0, 0, 0, 0.86);
+  --hero-overlay-2: rgba(0, 0, 0, 0.58);
+  --hero-overlay-3: rgba(0, 0, 0, 0.20);
+
+  --input-bg: #0d0d0d;
+  --button-text: #050505;
+  --navbar-bg: rgba(5, 5, 5, 0.88);
+}
+
+
+[data-theme="green-white"]{
+  --bg-color:#fff;
+  --second-bg-color:#f4faf6;
+  --card-color:#fff;
+  --text-color:#1d2921;
+  --heading-color:#0b1710;
+  --muted-color:#66736a;
+  --main-color:#00a94f;
+  --main-dark:#007b39;
+  --line-color:#dce8df;
+  --border-color:rgba(0,169,79,.32);
+  --soft-color:rgba(0,169,79,.08);
+  --shadow-color:rgba(0,169,79,.18);
+  --hero-overlay-1:rgba(255,255,255,.78);
+  --hero-overlay-2:rgba(255,255,255,.46);
+  --hero-overlay-3:rgba(255,255,255,.10);
+  --input-bg:#fff;
+  --button-text:#fff;
+  --navbar-bg:rgba(255,255,255,.82);
+}
+
+[data-theme="red-white"]{
+  --bg-color:#fff;
+  --second-bg-color:#fff5f5;
+  --card-color:#fff;
+  --text-color:#351d21;
+  --heading-color:#170b0d;
+  --muted-color:#766568;
+  --main-color:#f11629;
+  --main-dark:#f11629;
+  --line-color:#ead9dc;
+  --border-color:rgba(230,57,70,.30);
+  --soft-color:rgba(230,57,70,.07);
+  --shadow-color:rgba(230,57,70,.18);
+  --hero-overlay-1:rgba(255,255,255,.77);
+  --hero-overlay-2:rgba(255,255,255,.43);
+  --hero-overlay-3:rgba(255,255,255,.08);
+  --input-bg:#fff;
+  --button-text:#fff;
+  --navbar-bg:rgba(255,255,255,.84);
+}
+
+[data-theme="yellow-white"]{
+  --bg-color:#fffef7;
+  --second-bg-color:#fffbea;
+  --card-color:#fff;
+  --text-color:#39351b;
+  --heading-color:#1c1909;
+  --muted-color:#716c52;
+  --main-color:#d6a900;
+  --main-dark:#a98200;
+  --line-color:#eee6bf;
+  --border-color:rgba(214,169,0,.32);
+  --soft-color:rgba(214,169,0,.09);
+  --shadow-color:rgba(214,169,0,.18);
+  --hero-overlay-1:rgba(255,254,247,.76);
+  --hero-overlay-2:rgba(255,254,247,.42);
+  --hero-overlay-3:rgba(255,254,247,.08);
+  --input-bg:#fff;
+  --button-text:#1c1909;
+  --navbar-bg:rgba(255,254,247,.84);
+}
+
+[data-theme="purple-white"]{
+  --bg-color:#fff;
+  --second-bg-color:#faf7ff;
+  --card-color:#fff;
+  --text-color:#30263d;
+  --heading-color:#160c22;
+  --muted-color:#756a82;
+  --main-color:#7c3aed;
+  --main-dark:#5b21b6;
+  --line-color:#e5ddf0;
+  --border-color:rgba(124,58,237,.30);
+  --soft-color:rgba(124,58,237,.08);
+  --shadow-color:rgba(124,58,237,.18);
+  --hero-overlay-1:rgba(255,255,255,.76);
+  --hero-overlay-2:rgba(255,255,255,.42);
+  --hero-overlay-3:rgba(255,255,255,.08);
+  --input-bg:#fff;
+  --button-text:#fff;
+  --navbar-bg:rgba(255,255,255,.84);
+}
+
+[data-theme="orange-white"]{
+  --bg-color:#fff;
+  --second-bg-color:#fff8f1;
+  --card-color:#fff;
+  --text-color:#38281e;
+  --heading-color:#1d1008;
+  --muted-color:#76675b;
+  --main-color:#ea6c0b;
+  --main-dark:#bd4f00;
+  --line-color:#eddfd2;
+  --border-color:rgba(234,108,11,.30);
+  --soft-color:rgba(234,108,11,.08);
+  --shadow-color:rgba(234,108,11,.18);
+  --hero-overlay-1:rgba(255,255,255,.76);
+  --hero-overlay-2:rgba(255,255,255,.42);
+  --hero-overlay-3:rgba(255,255,255,.08);
+  --input-bg:#fff;
+  --button-text:#fff;
+  --navbar-bg:rgba(255,255,255,.84);
+}
+
+
+
+
+
+/* =========================================================
+   PAGE BACKGROUND
+========================================================= */
+
+.page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at 75% 20%,
+            var(--soft-color),
+            transparent 32%
+        ),
+        var(--bg-color);
+
+    transition: background 0.4s ease;
+}
+
+.section {
+    scroll-margin-top: 90px;
+}
+
+.container {
+    width: min(1180px, 88%);
+    margin: auto;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 88px;
+
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+
+    z-index: 100;
+
+    background: var(--navbar-bg);
+
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid var(--line-color);
+
+    transition:
+        background 0.4s ease,
+        border-color 0.4s ease;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 20px;
+    font-weight: 650;
+
+    min-width: 190px;
+}
+
+.brand-mark {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 10px;
+
+    background: var(--main-color);
+    color: var(--button-text);
+
+    display: grid;
+    place-items: center;
+
+    font-weight: 800;
+}
+
+.brand-mark.small {
+    width: 34px;
+    height: 34px;
+
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 36px;
+
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: 45px;
+}
+
+.nav-links a {
+    color: var(--muted-color);
+
+    font-size: 16px;
+
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--main-color);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.outline-btn,
+.solid-btn {
+    height: 56px;
+
+    padding: 0 25px;
+
+    border-radius: 8px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.25s ease;
+
+    cursor: pointer;
+}
+
+.outline-btn {
+    border: 1px solid var(--main-color);
+
+    color: var(--main-color);
+
+    background: transparent;
+}
+
+.outline-btn:hover {
+    background: var(--main-color);
+
+    color: var(--button-text);
+
+    box-shadow: 0 0 22px var(--shadow-color);
+}
+
+.solid-btn {
+    border: 1px solid var(--main-color);
+
+    background: var(--main-color);
+
+    color: var(--button-text);
+}
+
+.solid-btn:hover {
+    background: transparent;
+
+    color: var(--main-color);
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 0 22px var(--shadow-color);
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.menu-toggle {
+    display: none;
+
+    margin-left: auto;
+
+    background: none;
+
+    border: 0;
+
+    width: 42px;
+    height: 42px;
+
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+
+    width: 24px;
+    height: 2px;
+
+    background: var(--text-color);
+
+    margin: 5px auto;
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero {
+    position: relative;
+
+    height: 100vh;
+    min-height: 700px;
+
+    overflow: hidden;
+
+    background: var(--bg-color);
+}
+
+.hero-photo {
+    position: absolute;
+    inset: 0;
+    background-image: url("./assets/ProfilePhoto.png");
+    background-size: cover;
+    background-position: center 28%;
+    backgorund-color: black;
+    margin-left: -160px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--hero-overlay-1) 0%,
+            var(--hero-overlay-2) 24%,
+            var(--hero-overlay-3) 52%,
+            var(--hero-overlay-2) 100%
+        ),
+        linear-gradient(
+            180deg,
+            var(--hero-overlay-2),
+            transparent 45%,
+            var(--hero-overlay-1)
+        );
+}
+
+.hero-grid {
+    position: relative;
+
+    z-index: 2;
+
+    height: 100%;
+
+    width: 88%;
+
+    max-width: 1280px;
+
+    margin: auto;
+
+    padding-top: 120px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5%;
+
+    align-items: center;
+}
+
+.hero-left .eyebrow {
+    margin-bottom: 18px;
+}
+
+.eyebrow {
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    color: var(--main-color);
+
+    font-weight: 700;
+}
+
+.hero-left h1 {
+    font-size: clamp(78px, 8.4vw, 125px);
+
+    line-height: 0.84;
+
+    letter-spacing: -5px;
+
+    font-weight: 800;
+
+    color: var(--heading-color);
+}
+
+.hero-left h1 span {
+    display: block;
+}
+
+.hero-left .outline {
+    color: transparent;
+
+    -webkit-text-stroke: 2.5px var(--main-color);
+
+    font-weight: 500;
+}
+
+.hero-right {
+    text-align: center;
+
+    max-width: 640px;
+
+    margin-left: auto;
+}
+
+.hero-right h2 {
+    font-size: clamp(38px, 3.5vw, 55px);
+
+    line-height: 1.1;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 25px;
+
+    color: var(--heading-color);
+}
+
+.hero-right h2 span,
+.section-heading h2 span {
+    color: var(--main-color);
+}
+
+.hero-right p {
+    color: var(--muted-color);
+
+    font-size: 18px;
+
+    line-height: 1.6;
+
+    margin-bottom: 35px;
+}
+
+.hero-actions {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+}
+
+.availability {
+    position: absolute;
+
+    z-index: 5;
+
+    bottom: 52px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    color: var(--muted-color);
+
+    white-space: nowrap;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: var(--main-color);
+
+    box-shadow: 0 0 14px var(--main-color);
+}
+
+
+/* =========================================================
+   FLOATING CHAT
+========================================================= */
+
+.floating-chat {
+    position: absolute;
+
+    z-index: 6;
+
+    left: 35px;
+    bottom: 28px;
+
+    width: 61px;
+    height: 61px;
+
+    border-radius: 50%;
+
+    background: var(--main-color);
+
+    display: grid;
+    place-items: center;
+
+    transition: 0.25s ease;
+
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.floating-chat:hover {
+    transform: scale(1.08);
+}
+
+.floating-chat span {
+    width: 20px;
+    height: 16px;
+
+    border: 2px solid var(--button-text);
+
+    border-radius: 5px;
+
+    position: relative;
+}
+
+.floating-chat span::before,
+.floating-chat span::after {
+    content: "";
+
+    position: absolute;
+
+    top: 5px;
+
+    width: 3px;
+    height: 3px;
+
+    background: var(--button-text);
+
+    border-radius: 50%;
+}
+
+.floating-chat span::before {
+    left: 4px;
+}
+
+.floating-chat span::after {
+    right: 4px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.standard-section {
+    padding: 120px 0;
+
+    background: var(--bg-color);
+
+    transition: background 0.4s ease;
+}
+
+.dark-section {
+    background: var(--second-bg-color);
+
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+}
+
+.two-col {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 100px;
+
+    align-items: center;
+}
+
+.section-heading h2 {
+    font-size: clamp(45px, 5vw, 70px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    margin-top: 18px;
+
+    color: var(--heading-color);
+}
+
+.section-subtitle {
+    max-width: 650px;
+
+    margin: 20px auto 0;
+
+    color: var(--muted-color);
+
+    font-size: 17px;
+
+    line-height: 1.6;
+}
+
+.center {
+    text-align: center;
+
+    margin: 0 auto 55px;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-copy {
+    color: var(--muted-color);
+
+    font-size: 18px;
+
+    line-height: 1.75;
+}
+
+.about-copy p + p {
+    margin-top: 20px;
+}
+
+.about-meta {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+.about-meta div {
+    border-top: 1px solid var(--line-color);
+
+    padding-top: 13px;
+}
+
+.about-meta strong {
+    display: block;
+
+    color: var(--heading-color);
+
+    margin-bottom: 4px;
+}
+
+.about-meta span {
+    font-size: 14px;
+
+    color: var(--muted-color);
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.service-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.service-card,
+.project-card {
+    background: var(--card-color);
+
+    border: 1px solid var(--line-color);
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    transition: 0.3s ease;
+}
+
+.service-card:hover,
+.project-card:hover {
+    border-color: var(--main-color);
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 35px var(--shadow-color);
+}
+
+.card-number {
+    color: var(--main-color);
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+.service-card h3 {
+    font-size: 23px;
+
+    margin: 45px 0 15px;
+
+    color: var(--heading-color);
+}
+
+.service-card p,
+.project-card p {
+    color: var(--muted-color);
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skills-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 12px;
+
+    margin-top: 55px;
+}
+
+.skill {
+    border: 1px solid var(--line-color);
+
+    border-radius: 9px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    color: var(--muted-color);
+
+    transition: 0.25s ease;
+}
+
+.skill:hover {
+    border-color: var(--main-color);
+
+    color: var(--main-color);
+
+    background: var(--soft-color);
+
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+.project-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.project-card {
+    min-height: 300px;
+}
+
+.project-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--main-color);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+.project-card h3 {
+    font-size: 30px;
+
+    margin: 50px 0 13px;
+
+    color: var(--heading-color);
+}
+
+.tags {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+    margin: 22px 0;
+}
+
+.tags span {
+    font-size: 12px;
+
+    border: 1px solid var(--line-color);
+
+    border-radius: 50px;
+
+    padding: 6px 10px;
+
+    color: var(--muted-color);
+
+    transition: 0.25s ease;
+}
+
+.tags span:hover {
+    color: var(--main-color);
+
+    border-color: var(--main-color);
+
+    background: var(--soft-color);
+}
+
+.project-link {
+    color: var(--main-color);
+
+    font-weight: 600;
+}
+
+.project-link:hover {
+    text-shadow: 0 0 12px var(--main-color);
+}
+
+
+/* =========================================================
+   RESUME
+========================================================= */
+
+.resume-box {
+    border: 1px solid var(--line-color);
+
+    border-radius: 18px;
+
+    padding: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    background:
+        linear-gradient(
+            120deg,
+            var(--card-color),
+            var(--second-bg-color)
+        );
+
+    transition: 0.4s ease;
+}
+
+.resume-box h2 {
+    font-size: clamp(40px, 5vw, 65px);
+
+    line-height: 1;
+
+    margin-top: 16px;
+
+    color: var(--heading-color);
+}
+
+.resume-box h2 span {
+    color: var(--main-color);
+}
+
+.resume-box p {
+    color: var(--muted-color);
+
+    margin-top: 20px;
+
+    max-width: 620px;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 100px;
+
+    align-items: start;
+}
+
+.socials {
+    display: flex;
+
+    gap: 25px;
+
+    margin-top: 35px;
+}
+
+.socials a {
+    color: var(--main-color);
+
+    transition: 0.25s ease;
+}
+
+.socials a:hover {
+    transform: translateY(-3px);
+
+    text-shadow: 0 0 15px var(--main-color);
+}
+
+.contact-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.contact-form label {
+    color: var(--muted-color);
+
+    font-size: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    background: var(--input-bg);
+
+    border: 1px solid var(--line-color);
+
+    border-radius: 8px;
+
+    color: var(--text-color);
+
+    padding: 15px;
+
+    outline: 0;
+
+    transition: 0.25s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--muted-color);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--main-color);
+
+    box-shadow: 0 0 15px var(--shadow-color);
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.form-note {
+    color: var(--main-color);
+
+    min-height: 20px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    min-height: 90px;
+
+    padding: 25px 6%;
+
+    border-top: 1px solid var(--line-color);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    color: var(--muted-color);
+
+    background: var(--bg-color);
+
+    transition: 0.4s ease;
+}
+
+.footer > div {
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+    color: var(--heading-color);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    backdrop-filter: blur(10px);
+
+    z-index: 200;
+
+    display: none;
+
+    place-items: center;
+
+    padding: 20px;
+}
+
+.modal.show {
+    display: grid;
+}
+
+.modal-card {
+    position: relative;
+
+    width: min(550px, 100%);
+
+    background: var(--card-color);
+
+    border: 1px solid var(--line-color);
+
+    border-radius: 16px;
+
+    padding: 45px;
+}
+
+.modal-card h2 {
+    font-size: 40px;
+
+    margin: 12px 0;
+
+    color: var(--heading-color);
+}
+
+.modal-card p:last-child {
+    color: var(--muted-color);
+
+    line-height: 1.7;
+}
+
+.modal-close {
+    position: absolute;
+
+    right: 18px;
+    top: 14px;
+
+    background: none;
+
+    border: 0;
+
+    color: var(--text-color);
+
+    font-size: 30px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   EXTRA COLOR
+========================================================= */
+
+.color {
+    color: var(--main-color);
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   THEME SWITCHER
+========================================================= */
+
+.theme-switcher {
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    z-index: 2147483647;
+
+    font-family: inherit;
+}
+
+.theme-toggle {
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid var(--main-color);
+
+    border-radius: 50%;
+
+    background: #0b1722;
+
+    color: var(--main-color);
+
+    cursor: pointer;
+
+    outline: none;
+
+    box-shadow:
+        0 0 12px var(--shadow-color),
+        0 0 30px var(--shadow-color);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.theme-icon {
+    width: 28px;
+    height: 28px;
+
+    transition: transform 0.5s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.08);
+
+    background: var(--main-color);
+
+    color: #000;
+
+    box-shadow:
+        0 0 18px var(--main-color),
+        0 0 35px var(--shadow-color);
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   THEME PANEL
+========================================================= */
+
+.theme-panel {
+    position: absolute;
+
+    right: 0;
+
+    bottom: 75px;
+
+    width: 225px;
+
+    padding: 12px;
+
+    background: #101820;
+
+    border: 1px solid var(--main-color);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.45),
+        0 0 25px var(--shadow-color);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(12px);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.theme-panel.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+.theme-btn {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 13px;
+
+    margin: 3px 0;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #ffffff !important;
+
+    font-family: "Outfit", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+
+    color: var(--main-color) !important;
+
+    transform: translateX(4px);
+}
+
+.theme-dot {
+    width: 19px;
+    height: 19px;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px currentColor;
+}
+
+
+/* =========================================================
+   THEME DOT COLORS
+========================================================= */
+
+.theme-dot.green {
+    background: #00e45b;
+
+    color: #00e45b;
+}
+
+.theme-dot.blue {
+    background: #ffd60a;
+
+    color: #ffd60a;
+}
+
+.theme-dot.purple {
+    background: #a78bfa;
+
+    color: #a78bfa;
+}
+
+.theme-dot.cyan {
+    background: #5eead4;
+
+    color: #5eead4;
+}
+
+.theme-dot.orange {
+    background: #ff9f43;
+
+    color: #ff9f43;
+}
+
+.theme-dot.red-black {
+    background: #f11629;
+
+    color: #f11629;
+}
+
+.theme-dot.red {
+    background: #fb7185;
+
+    color: #fb7185;
+}
+
+.theme-dot.brown {
+    background: #B87333;
+
+    color: #B87333;
+}
+
+.theme-dot.green{background:#00a94f;color:#00a94f}
+.theme-dot.red-black{background:#f11629;color:#f11629}
+.theme-dot.yellow{background:#d6a900;color:#d6a900}
+.theme-dot.purple{background:#7c3aed;color:#7c3aed}
+.theme-dot.orange{background:#ea6c0b;color:#ea6c0b}
+.theme-dot.cyan{background:#159bd3;color:#159bd3}
+.theme-dot.brown{background:#B87333;color:#B87333}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nav-links {
+        gap: 20px;
+
+        margin-right: 20px;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(65px, 9vw, 100px);
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        height: 78px;
+
+        padding: 0 6%;
+    }
+
+    .nav-links {
+        position: absolute;
+
+        top: 78px;
+
+        left: 0;
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 25px 6%;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        background: var(--second-bg-color);
+
+        border-bottom: 1px solid var(--line-color);
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-cta {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        height: auto;
+
+        min-height: 900px;
+    }
+
+    .hero-grid {
+        height: auto;
+
+        min-height: 900px;
+
+        padding: 130px 0 150px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        text-align: center;
+    }
+
+    .hero-left h1 {
+        font-size: clamp(64px, 18vw, 94px);
+
+        letter-spacing: -3px;
+    }
+
+    .hero-right {
+        margin: auto;
+    }
+
+    .hero-right p {
+        font-size: 16px;
+    }
+
+    .availability {
+        bottom: 30px;
+
+        font-size: 13px;
+    }
+
+    .floating-chat {
+        left: 20px;
+
+        bottom: 20px;
+
+        width: 52px;
+        height: 52px;
+    }
+
+
+    /* SECTIONS */
+
+    .two-col,
+    .contact-grid {
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+    .standard-section {
+        padding: 90px 0;
+    }
+
+    .service-grid,
+    .skills-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .resume-box {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 35px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        flex-direction: column;
+
+        gap: 12px;
+
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .brand {
+        font-size: 17px;
+
+        min-width: auto;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+    }
+
+    .hero-right h2 {
+        font-size: 31px;
+    }
+
+    .hero-actions {
+        width: 100%;
+    }
+
+    .hero-actions .solid-btn,
+    .hero-actions .outline-btn {
+        width: 100%;
+    }
+
+    .service-grid,
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 48px;
+    }
+
+    .about-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-box h2 {
+        font-size: 44px;
+    }
+
+
+    /* THEME SWITCHER */
+
+    .theme-switcher {
+        right: 18px;
+
+        bottom: 18px;
+    }
+
+    .theme-toggle {
+        width: 56px;
+        height: 56px;
+    }
+
+    .theme-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .theme-panel {
+        width: 205px;
+
+        bottom: 66px;
+    }
+
+    .theme-btn {
+        padding: 11px 12px;
+
+        font-size: 14px;
+    }
+}
