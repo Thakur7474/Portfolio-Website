@@ -1,440 +1,549 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shiv Singh - Full Stack Web Developer Portfolio">
-  <title>Shiv Singh | Full Stack Web Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-
-</head>
-<body>
-
-
-  
 /* =========================================================
-    THEME COLOR SWITCHER
+   SHIV SINGH PORTFOLIO
+   COMPLETE SCRIPT.JS
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const themeToggle = document.getElementById("themeToggle");
-    const themePanel = document.getElementById("themePanel");
-    const themeButtons = document.querySelectorAll(".theme-btn");
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const navbar = document.getElementById("navbar");
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinksContainer = document.getElementById("navLinks");
+
+    const navLinks = document.querySelectorAll(
+        ".nav-links a"
+    );
+
+    const sections = document.querySelectorAll(
+        "main section[id]"
+    );
+
+    const themeToggle =
+        document.getElementById("themeToggle");
+
+    const themePanel =
+        document.getElementById("themePanel");
+
+    const themeButtons =
+        document.querySelectorAll(".theme-btn");
+
+    const projectModal =
+        document.getElementById("projectModal");
+
+    const modalClose =
+        document.getElementById("modalClose");
+
+    const modalTitle =
+        document.getElementById("modalTitle");
+
+    const modalText =
+        document.getElementById("modalText");
+
+    const projectLinks =
+        document.querySelectorAll("[data-demo]");
+
+    const contactForm =
+        document.getElementById("contactForm");
+
+    const formNote =
+        document.getElementById("formNote");
+
+    const yearElement =
+        document.getElementById("year");
 
 
-    /* ---------------------------------------------
-      Safety Check
-    --------------------------------------------- */
+    /* =====================================================
+       YEAR
+    ===================================================== */
 
-    if (!themeToggle || !themePanel) {
-        console.error("Theme switcher elements not found.");
-        return;
+    if (yearElement) {
+        yearElement.textContent =
+            new Date().getFullYear();
     }
 
-    /* ---------------------------------------------
-      Load Saved Theme
-    --------------------------------------------- */
 
-    const savedTheme =
-        localStorage.getItem("portfolioTheme");
+    /* =====================================================
+       NAVBAR
+       DESKTOP + MOBILE
+    ===================================================== */
 
-    if (savedTheme) {
+    function closeMobileMenu() {
 
-        document.documentElement.setAttribute(
-            "data-theme",
-            savedTheme
-        );
+        if (navLinksContainer) {
+            navLinksContainer.classList.remove("open");
+        }
 
-    } else {
-        document.documentElement.setAttribute(
-            "data-theme",
-            "green"
-        );
-
+        if (menuToggle) {
+            menuToggle.classList.remove("active");
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
     }
 
 
-    /* ---------------------------------------------
-        Open / Close Theme Panel
-    --------------------------------------------- */
+    function openMobileMenu() {
 
-    themeToggle.addEventListener("click", function (event) {
-        event.stopPropagation();
-        themePanel.classList.toggle("active");
-    });
+        if (navLinksContainer) {
+            navLinksContainer.classList.add("open");
+        }
 
-    /* ---------------------------------------------
-        Select Theme
-    --------------------------------------------- */
+        if (menuToggle) {
+            menuToggle.classList.add("active");
+            menuToggle.setAttribute(
+                "aria-label",
+                "Close navigation"
+            );
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+        }
+    }
 
-    themeButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
+
+    if (menuToggle && navLinksContainer) {
+
+        menuToggle.addEventListener("click", (event) => {
+
+            event.preventDefault();
             event.stopPropagation();
-            const selectedTheme =
-                button.getAttribute("data-theme");
 
-            /* Apply theme */
+            const isOpen =
+                navLinksContainer.classList.contains("open");
 
-            document.documentElement.setAttribute(
-                "data-theme",
-                selectedTheme
-            );
+            if (isOpen) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+
+        });
+
+    }
 
 
-            /* Save theme */
+    /* =====================================================
+       NAVBAR ACTIVE LINK
+    ===================================================== */
 
-            localStorage.setItem(
-                "portfolioTheme",
-                selectedTheme
-            );
+    function setActiveNav(sectionId) {
 
-            /* Close panel */
+        if (!sectionId) return;
 
-            themePanel.classList.remove("active");
+        navLinks.forEach((link) => {
+
+            const linkTarget =
+                link.getAttribute("href");
+
+            if (
+                linkTarget === `#${sectionId}`
+            ) {
+
+                link.classList.add("active");
+
+            } else {
+
+                link.classList.remove("active");
+
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       GET NAVBAR HEIGHT
+    ===================================================== */
+
+    function getNavbarHeight() {
+
+        if (!navbar) {
+            return 0;
+        }
+
+        return navbar.offsetHeight;
+    }
+
+
+    /* =====================================================
+       SCROLL TO SECTION
+    ===================================================== */
+
+    function scrollToSection(sectionId) {
+
+        const section =
+            document.getElementById(sectionId);
+
+        if (!section) return;
+
+        const navbarHeight =
+            getNavbarHeight();
+
+        const sectionTop =
+            section.getBoundingClientRect().top +
+            window.scrollY;
+
+        const targetPosition =
+            sectionTop - navbarHeight;
+
+        window.scrollTo({
+            top: Math.max(0, targetPosition),
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =====================================================
+       NAVIGATION CLICK
+    ===================================================== */
+
+    navLinks.forEach((link) => {
+
+        link.addEventListener("click", (event) => {
+
+            const href =
+                link.getAttribute("href");
+
+            if (
+                !href ||
+                !href.startsWith("#")
+            ) {
+                return;
+            }
+
+            const sectionId =
+                href.substring(1);
+
+            const section =
+                document.getElementById(sectionId);
+
+            if (!section) {
+                return;
+            }
+
+            event.preventDefault();
+
+            setActiveNav(sectionId);
+
+            scrollToSection(sectionId);
+
+            closeMobileMenu();
+
+            /*
+             * Update browser URL without jumping.
+             */
+            if (
+                window.history &&
+                window.history.pushState
+            ) {
+
+                window.history.pushState(
+                    null,
+                    "",
+                    `#${sectionId}`
+                );
+
+            }
 
         });
 
     });
 
 
-    /* ---------------------------------------------
-       Close Panel When Clicking Outside
-    --------------------------------------------- */
+    /* =====================================================
+       ACTIVE NAVBAR WHILE SCROLLING
+       
+       IMPORTANT:
+       This does NOT depend on IntersectionObserver.
+       It calculates the section currently visible.
+    ===================================================== */
 
-    document.addEventListener("click", function (event) {
+    let scrollTicking = false;
+
+    function updateActiveSection() {
+
+        if (!sections.length) {
+            return;
+        }
+
+        const navbarHeight =
+            getNavbarHeight();
+
+        const scrollPosition =
+            window.scrollY +
+            navbarHeight +
+            120;
+
+        let currentSection =
+            sections[0].id;
+
+        sections.forEach((section) => {
+
+            const sectionTop =
+                section.offsetTop;
+
+            if (
+                scrollPosition >= sectionTop
+            ) {
+
+                currentSection =
+                    section.id;
+
+            }
+
+        });
+
+        setActiveNav(currentSection);
+
+        scrollTicking = false;
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (!scrollTicking) {
+
+                window.requestAnimationFrame(
+                    updateActiveSection
+                );
+
+                scrollTicking = true;
+
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    /* =====================================================
+       INITIAL NAVBAR STATE
+    ===================================================== */
+
+    function setInitialSection() {
+
+        const hash =
+            window.location.hash
+                .replace("#", "")
+                .trim();
 
         if (
-            !themePanel.contains(event.target) &&
-            !themeToggle.contains(event.target)
+            hash &&
+            document.getElementById(hash)
         ) {
 
-            themePanel.classList.remove("active");
+            setActiveNav(hash);
+
+            /*
+             * Wait until layout is completely ready.
+             */
+            setTimeout(() => {
+
+                scrollToSection(hash);
+
+            }, 100);
+
+        } else {
+
+            setActiveNav("home");
 
         }
 
-    });
-
-});
-
-  <div class="page-bg"></div>
-
-  <header class="navbar" id="navbar">
-    <a class="brand" href="#home" aria-label="Shiv Singh home">
-      <span class="brand-mark">S</span>
-      <span>Shiv Singh</span>
-    </a>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
-      <span></span><span></span><span></span>
-    </button>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="#home" class="active">Home</a>
-      <a href="#about">About Me</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#pages">Pages</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <a href="#contact" class="outline-btn nav-cta">Get In Touch</a>
-  </header>
-
-  <main>
-    <!-- HERO -->
-    <section class="hero section" id="home">
-      <div class="hero-photo"></div>
-      <div class="hero-overlay"></div>
-
-      <div class="hero-grid">
-        <div class="hero-left reveal">
-          <p class="eyebrow">FULL STACK DEVELOPER</p>
-          <h1>
-            <span>Build</span>
-            <span class="outline">Digital</span>
-            <span>Futures</span>
-          </h1>
-        </div>
-
-        <div class="hero-right reveal">
-          <h2>Innovate. Develop.<br><span>Succeed. Fast.</span></h2>
-          <p>
-            I build modern, scalable and user-friendly web applications
-            that turn ideas into practical digital products using clean code
-            and modern technologies.
-          </p>
-          <div class="hero-actions">
-            <a class="solid-btn" href="#contact">Hire Me <span>→</span></a>
-            <a class="outline-btn" href="#portfolio">View My Work</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="availability">
-        <span class="dot"></span>
-        <span>Shiv Singh — Full Stack Web Developer</span>
-      </div>
-
-      <a class="floating-chat" href="#contact" aria-label="Go to contact">
-        <span></span>
-      </a>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section standard-section" id="about">
-      <div class="container two-col">
-        <div class="section-heading reveal">
-          <p class="eyebrow">ABOUT ME</p>
-          <h2>Turning ideas into <span>useful products.</span></h2>
-        </div>
-        <div class="about-copy reveal">
-          <p>
-            I'm Shiv Singh, a B.Tech Computer Science student and aspiring
-            full stack developer focused on building practical web experiences.
-            I enjoy understanding how websites work, how data is stored and
-            how software can solve real problems.
-          </p>
-          <p>
-            My current focus includes frontend development, backend APIs,
-            databases, AI-powered applications and placement-ready software
-            projects.
-          </p>
-          <div class="about-meta">
-            <div><strong>Focus</strong><span>Full Stack + AI</span></div>
-            <div><strong>Education</strong><span>B.Tech CSE</span></div>
-            <div><strong>Approach</strong><span>Clean & Practical</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="section standard-section dark-section" id="services">
-      <div class="container">
-        <div class="section-heading center reveal">
-          <p class="eyebrow">SERVICES</p>
-          <h2>What I <span>build.</span></h2>
-          <p class="section-subtitle">Modern development services for useful, responsive and scalable digital products.</p>
-        </div>
-
-        <div class="service-grid">
-          <article class="service-card reveal">
-            <span class="card-number">01</span>
-            <h3>Frontend Development</h3>
-            <p>Responsive interfaces with HTML, CSS, JavaScript, React and modern component-based UI.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">02</span>
-            <h3>Full Stack Development</h3>
-            <p>Complete web applications with frontend, backend APIs, authentication and databases.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">03</span>
-            <h3>Backend & APIs</h3>
-            <p>REST APIs, Express.js services, server-side logic, sessions and database integration.</p>
-          </article>
-          <article class="service-card reveal">
-            <span class="card-number">04</span>
-            <h3>AI Integration</h3>
-            <p>AI-assisted features such as resume analysis, intelligent recommendations and automation.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="section standard-section" id="skills">
-      <div class="container">
-        <div class="section-heading reveal">
-          <p class="eyebrow">TECH STACK</p>
-          <h2>Tools I <span>work with.</span></h2>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill">HTML5</div>
-          <div class="skill">CSS3</div>
-          <div class="skill">JavaScript</div>
-          <div class="skill">React</div>
-          <div class="skill">Node.js</div>
-          <div class="skill">Express</div>
-          <div class="skill">MongoDB</div>
-          <div class="skill">SQL</div>
-          <div class="skill">Python</div>
-          <div class="skill">Java</div>
-          <div class="skill">Git & GitHub</div>
-          <div class="skill">REST APIs</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="section standard-section dark-section" id="portfolio">
-      <div class="container">
-        <div class="section-heading center reveal">
-          <p class="eyebrow">PORTFOLIO</p>
-          <h2>Selected <span>projects.</span></h2>
-          <p class="section-subtitle">A few projects that represent my current development journey.</p>
-        </div>
-
-        <div class="project-grid">
-          <article class="project-card reveal">
-            <div class="project-top"><span>01</span><span>FULL STACK</span></div>
-            <h3>WanderLust</h3>
-            <p>A travel listing web application with listings, reviews, authentication, sessions and MongoDB integration.</p>
-            <div class="tags"><span>Express</span><span>MongoDB</span><span>EJS</span></div>
-            <a href="https://wanderlust-stayfinder-tsym.onrender.com/listings" class="https://wanderlust-stayfinder-tsym.onrender.com/listings" data-demo="WanderLust"> <span class="color">View Project ↗</span></a>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top"><span>02</span><span>AI</span></div>
-            <h3>AI Resume Analyzer</h3>
-            <p>An AI-powered resume analysis experience that evaluates uploaded resumes and returns structured feedback.</p>
-            <div class="tags"><span>React</span><span>PDF</span><span>AI</span></div>
-            <a href="#" class="project-link" data-demo="AI Resume Analyzer"><span class="color">View Project ↗</span></a>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top"><span>03</span><span>REACT</span></div>
-            <h3>PocketBot</h3>
-            <p>PocketBot is an AI-powered personal assistant for productivity, planning, travel, and everyday tasks.</p>
-            <div class="tags"><span>React</span><span>Vite</span><span>Tailwindcss</span></div>
-            <a href="#" class="project-link" data-demo="PocketBot"><span class="color">View Project ↗</span></a>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top"><span>04</span><span>Vite / Tailwindcss</span></div>
-            <h3>Melodia Music Player</h3>
-            <p>Melodia Music Player is a modern music streaming platform offering smooth playback, personalized playlists, intuitive navigation, and an engaging user-friendly listening experience.</p>
-            <div class="tags"><span>React</span><span>MongoDB</span><span>REST APIs</span></div>
-            <a href="https://melodia-music-player-vert.vercel.app/" class="https://melodia-music-player-vert.vercel.app/" data-demo="Melodia Music Player"><span class="color">View Project ↗</span></a>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-top"><span>05</span><span>OpenTDB</span></div>
-            <h3>Quiz Game</h3>
-            <p>Quiz Game is an interactive web-based application featuring engaging quizzes, dynamic questions, score tracking, and a user-friendly interface for enjoyable learning.</p>
-            <div class="tags"><span>HTML5</span><span>CSS</span><span>JavaScript</span></div>
-            <a href="https://thakur7474.github.io/Quiz-Master/" class="https://thakur7474.github.io/Quiz-Master/" data-demo="Quiz Game"><span class="color">View Project ↗</span></a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAGES / RESUME -->
-    <section class="section standard-section" id="pages">
-      <div class="container resume-box reveal">
-        <div>
-          <p class="eyebrow">RESUME</p>
-          <h2>Let's build something <span>meaningful.</span></h2>
-          <p>Download my resume to see my education, technical skills and project experience.</p>
-        </div>
-        <a class="solid-btn" href="assets/Resume.pdf" download>Download Resume ↓</a>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section standard-section dark-section" id="contact">
-      <div class="container contact-grid">
-        <div class="section-heading reveal">
-          <p class="eyebrow">GET IN TOUCH</p>
-          <h2>Have an idea?<br><span>Let's talk.</span></h2>
-          <p class="section-subtitle">Use the form or connect with me through the links below.</p>
-          <div class="socials">
-            <a href="https://github.com/Thakur7474" target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a href="https://www.linkedin.com/in/shiv-singh-aa5a28323" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="mailto:thakur1262007@gmail.com">Email ↗</a>
-          </div>
-        </div>
-
-        <form class="contact-form reveal" id="contactForm">
-          <label>Name<input type="text" id="name" placeholder="Your name" required></label>
-          <label>Email<input type="email" id="email" placeholder="your@email.com" required></label>
-          <label>Message<textarea id="message" rows="6" placeholder="Tell me about your project..." required></textarea></label>
-          <button class="solid-btn" type="submit">Send Message →</button>
-          <p class="form-note" id="formNote"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>
-      <span class="brand-mark small">S</span>
-      <span>Shiv Singh</span>
-    </div>
-    <p>© <span id="year"></span> Shiv Singh. Built with clean code.</p>
-  </footer>
-
-  <div class="modal" id="projectModal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" id="modalClose">×</button>
-      <p class="eyebrow">PROJECT</p>
-      <h2 id="modalTitle"></h2>
-      <p id="modalText"></p>
-    </div>
-  </div>
-
-
-/* =========================================================
-   FINAL PORTFOLIO THEME SWITCHER
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const themeToggle = document.getElementById("themeToggle");
-    const themePanel = document.getElementById("themePanel");
-    const themeButtons = document.querySelectorAll(".theme-btn");
-
-    console.log("=================================");
-    console.log("Theme Switcher Loaded");
-    console.log("Toggle:", themeToggle);
-    console.log("Panel:", themePanel);
-    console.log("Buttons:", themeButtons.length);
-    console.log("=================================");
-
-
-    /* -----------------------------------------------------
-       SAFETY CHECK
-    ----------------------------------------------------- */
-
-    if (!themeToggle) {
-        console.error("Theme Toggle button not found.");
-        return;
-    }
-
-    if (!themePanel) {
-        console.error("Theme Panel not found.");
-        return;
     }
 
 
-    /* -----------------------------------------------------
-       AVAILABLE THEMES
-    ----------------------------------------------------- */
+    setInitialSection();
+
+
+    /* =====================================================
+       HANDLE BROWSER BACK / FORWARD
+    ===================================================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            const hash =
+                window.location.hash
+                    .replace("#", "")
+                    .trim();
+
+            if (
+                hash &&
+                document.getElementById(hash)
+            ) {
+
+                setActiveNav(hash);
+
+                setTimeout(() => {
+
+                    scrollToSection(hash);
+
+                }, 50);
+
+            } else {
+
+                setActiveNav("home");
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE MOBILE MENU WHEN CLICKING OUTSIDE
+    ===================================================== */
+
+    document.addEventListener(
+        "click",
+        (event) => {
+
+            if (
+                !navLinksContainer ||
+                !menuToggle
+            ) {
+                return;
+            }
+
+            const clickedInsideMenu =
+                navLinksContainer.contains(
+                    event.target
+                );
+
+            const clickedToggle =
+                menuToggle.contains(
+                    event.target
+                );
+
+            if (
+                !clickedInsideMenu &&
+                !clickedToggle
+            ) {
+
+                closeMobileMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CLOSE MOBILE MENU ON RESIZE
+    ===================================================== */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (window.innerWidth > 800) {
+                closeMobileMenu();
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       NAVBAR SCROLL EFFECT
+    ===================================================== */
+
+    function updateNavbar() {
+
+        if (!navbar) return;
+
+        if (window.scrollY > 40) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
+
+        }
+
+    }
+
+    updateNavbar();
+
+    window.addEventListener(
+        "scroll",
+        updateNavbar,
+        { passive: true }
+    );
+
+
+    /* =====================================================
+       THEME SWITCHER
+    ===================================================== */
+
+    /*
+     * Supports BOTH:
+     *
+     * Old theme names:
+     * green
+     * blue
+     * orange
+     * red
+     * purple
+     * cyan
+     *
+     * New theme names:
+     * green-black
+     * yellow-black
+     * orange-black
+     * cyan-black
+     * red-black
+     * purple-black
+     * ice-blue-black
+     */
 
     const validThemes = [
+        "green",
+        "blue",
+        "orange",
+        "red",
+        "purple",
+        "cyan",
+        "red-black",
+
         "green-black",
         "yellow-black",
         "orange-black",
         "cyan-black",
-        "red-black",
         "purple-black",
         "ice-blue-black"
     ];
 
 
-    /* -----------------------------------------------------
-       APPLY THEME
-    ----------------------------------------------------- */
-
     function applyTheme(theme) {
 
-        if (!validThemes.includes(theme)) {
-            theme = "green-black";
+        if (
+            !validThemes.includes(theme)
+        ) {
+
+            theme = "green";
+
         }
 
         document.documentElement.setAttribute(
@@ -447,140 +556,657 @@ document.addEventListener("DOMContentLoaded", function () {
             theme
         );
 
-        console.log("Theme applied:", theme);
     }
 
 
-    /* -----------------------------------------------------
-       LOAD SAVED THEME
-    ----------------------------------------------------- */
+    function closeThemePanel() {
+
+        if (!themePanel) return;
+
+        themePanel.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    function openThemePanel() {
+
+        if (!themePanel) return;
+
+        themePanel.classList.add(
+            "active"
+        );
+
+    }
+
+
+    /* Load saved theme */
 
     const savedTheme =
-        localStorage.getItem("portfolioTheme");
+        localStorage.getItem(
+            "portfolioTheme"
+        );
+
 
     applyTheme(
         validThemes.includes(savedTheme)
             ? savedTheme
-            : "green-black"
+            : "green"
     );
 
 
-    /* -----------------------------------------------------
-       OPEN / CLOSE THEME PANEL
-    ----------------------------------------------------- */
+    /* Theme toggle button */
 
-    themeToggle.addEventListener("click", function (event) {
+    if (themeToggle && themePanel) {
 
-        event.preventDefault();
-        event.stopPropagation();
+        themeToggle.addEventListener(
+            "click",
+            (event) => {
 
-        themePanel.classList.toggle("active");
+                event.preventDefault();
+                event.stopPropagation();
 
-        console.log(
-            "Theme panel:",
-            themePanel.classList.contains("active")
-                ? "OPEN"
-                : "CLOSED"
+                const isOpen =
+                    themePanel.classList.contains(
+                        "active"
+                    );
+
+                if (isOpen) {
+
+                    closeThemePanel();
+
+                } else {
+
+                    openThemePanel();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* Theme buttons */
+
+    themeButtons.forEach((button) => {
+
+        button.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                const selectedTheme =
+                    button.getAttribute(
+                        "data-theme"
+                    );
+
+                if (!selectedTheme) {
+                    return;
+                }
+
+                applyTheme(
+                    selectedTheme
+                );
+
+                closeThemePanel();
+
+            }
         );
 
     });
 
 
-    /* -----------------------------------------------------
-       THEME BUTTONS
-    ----------------------------------------------------- */
+    /* Close theme panel outside */
 
-    themeButtons.forEach(function (button) {
+    document.addEventListener(
+        "click",
+        (event) => {
 
-        button.addEventListener("click", function (event) {
-
-            event.preventDefault();
-            event.stopPropagation();
-
-            const selectedTheme =
-                button.getAttribute("data-theme");
-
-            console.log(
-                "Selected theme:",
-                selectedTheme
-            );
-
-            if (!selectedTheme) {
+            if (
+                !themePanel ||
+                !themeToggle
+            ) {
                 return;
             }
 
-            applyTheme(selectedTheme);
+            const clickedPanel =
+                themePanel.contains(
+                    event.target
+                );
 
-            themePanel.classList.remove("active");
+            const clickedToggle =
+                themeToggle.contains(
+                    event.target
+                );
 
-        });
+            if (
+                !clickedPanel &&
+                !clickedToggle
+            ) {
+
+                closeThemePanel();
+
+            }
+
+        }
+    );
+
+
+    /* Escape closes theme panel */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeThemePanel();
+
+                closeMobileMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       REVEAL ANIMATION
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    if (
+        "IntersectionObserver" in window
+    ) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                (entries, observer) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12
+                }
+            );
+
+
+        revealElements.forEach(
+            (element) => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+    } else {
+
+        revealElements.forEach(
+            (element) => {
+
+                element.classList.add(
+                    "visible"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PROJECT MODAL
+    ===================================================== */
+
+    const projectInformation = {
+
+        "AI Resume Analyzer": {
+            title: "AI Resume Analyzer",
+            text:
+                "An AI-powered resume analysis application that evaluates resumes and provides structured feedback, improvement suggestions and placement-focused insights."
+        },
+
+        "PocketBot": {
+            title: "PocketBot",
+            text:
+                "An AI-powered personal assistant designed for productivity, planning, travel and everyday tasks."
+        },
+
+        "Melodia Music Player": {
+            title: "Melodia Music Player",
+            text:
+                "A modern music platform focused on smooth playback, playlists, intuitive navigation and an engaging listening experience."
+        },
+
+        "WanderLust": {
+            title: "WanderLust",
+            text:
+                "A full-stack travel listing application with listings, reviews, authentication, sessions and MongoDB integration."
+        },
+
+        "Quiz Game": {
+            title: "Quiz Game",
+            text:
+                "An interactive quiz application featuring dynamic questions, score tracking and a user-friendly learning experience."
+        }
+
+    };
+
+
+    function openProjectModal(projectName) {
+
+        if (!projectModal) return;
+
+        const information =
+            projectInformation[
+                projectName
+            ] || {
+                title: projectName,
+                text:
+                    "Project information will be available soon."
+            };
+
+
+        if (modalTitle) {
+
+            modalTitle.textContent =
+                information.title;
+
+        }
+
+
+        if (modalText) {
+
+            modalText.textContent =
+                information.text;
+
+        }
+
+
+        projectModal.classList.add(
+            "active"
+        );
+
+        projectModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+    }
+
+
+    function closeProjectModal() {
+
+        if (!projectModal) return;
+
+        projectModal.classList.remove(
+            "active"
+        );
+
+        projectModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove(
+            "modal-open"
+        );
+
+    }
+
+
+    projectLinks.forEach((link) => {
+
+        link.addEventListener(
+            "click",
+            (event) => {
+
+                const projectName =
+                    link.getAttribute(
+                        "data-demo"
+                    );
+
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+                /*
+                 * Only open modal for "#"
+                 * project links.
+                 *
+                 * Real external project URLs
+                 * continue normally.
+                 */
+
+                if (
+                    projectName &&
+                    (
+                        !href ||
+                        href === "#"
+                    )
+                ) {
+
+                    event.preventDefault();
+
+                    openProjectModal(
+                        projectName
+                    );
+
+                }
+
+            }
+        );
 
     });
 
 
-    /* -----------------------------------------------------
-       CLICK OUTSIDE
-    ----------------------------------------------------- */
+    if (modalClose) {
 
-    document.addEventListener("click", function (event) {
+        modalClose.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+
+                closeProjectModal();
+
+            }
+        );
+
+    }
+
+
+    if (projectModal) {
+
+        projectModal.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target ===
+                    projectModal
+                ) {
+
+                    closeProjectModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CLOSE MODAL WITH ESCAPE
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeProjectModal();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CONTACT FORM
+    ===================================================== */
+
+    if (contactForm) {
+
+        contactForm.addEventListener(
+            "submit",
+            (event) => {
+
+                event.preventDefault();
+
+                const nameInput =
+                    document.getElementById(
+                        "name"
+                    );
+
+                const emailInput =
+                    document.getElementById(
+                        "email"
+                    );
+
+                const messageInput =
+                    document.getElementById(
+                        "message"
+                    );
+
+
+                const name =
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "";
+
+                const email =
+                    emailInput
+                        ? emailInput.value.trim()
+                        : "";
+
+                const message =
+                    messageInput
+                        ? messageInput.value.trim()
+                        : "";
+
+
+                if (
+                    !name ||
+                    !email ||
+                    !message
+                ) {
+
+                    if (formNote) {
+
+                        formNote.textContent =
+                            "Please fill in all fields.";
+
+                    }
+
+                    return;
+
+                }
+
+
+                /*
+                 * Portfolio is a static website.
+                 * Prepare an email using the existing
+                 * portfolio email address.
+                 */
+
+                const subject =
+                    encodeURIComponent(
+                        `Portfolio Contact - ${name}`
+                    );
+
+                const body =
+                    encodeURIComponent(
+                        `Name: ${name}\n\n` +
+                        `Email: ${email}\n\n` +
+                        `Message:\n${message}`
+                    );
+
+
+                if (formNote) {
+
+                    formNote.textContent =
+                        "Opening your email app...";
+
+                }
+
+
+                window.location.href =
+                    `mailto:thakur1262007@gmail.com` +
+                    `?subject=${subject}` +
+                    `&body=${body}`;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BUTTONS / HASH LINKS
+       HERO + CTA + OTHER # LINKS
+    ===================================================== */
+
+    const allHashLinks =
+        document.querySelectorAll(
+            'a[href^="#"]'
+        );
+
+
+    allHashLinks.forEach((link) => {
+
+        /*
+         * Navbar links already have their
+         * own handler above.
+         */
 
         if (
-            !themePanel.contains(event.target) &&
-            !themeToggle.contains(event.target)
+            link.closest(".nav-links")
         ) {
-
-            themePanel.classList.remove("active");
-
+            return;
         }
+
+
+        link.addEventListener(
+            "click",
+            (event) => {
+
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+                if (
+                    !href ||
+                    href === "#"
+                ) {
+                    return;
+                }
+
+
+                const sectionId =
+                    href.substring(1);
+
+                const target =
+                    document.getElementById(
+                        sectionId
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+                /*
+                 * If this is a main portfolio
+                 * section, update navbar.
+                 */
+
+                if (
+                    [
+                        "home",
+                        "about",
+                        "services",
+                        "portfolio",
+                        "pages",
+                        "contact"
+                    ].includes(sectionId)
+                ) {
+
+                    setActiveNav(
+                        sectionId
+                    );
+
+                }
+
+
+                scrollToSection(
+                    sectionId
+                );
+
+
+                if (
+                    window.history &&
+                    window.history.pushState
+                ) {
+
+                    window.history.pushState(
+                        null,
+                        "",
+                        `#${sectionId}`
+                    );
+
+                }
+
+            }
+        );
 
     });
 
 
-    /* -----------------------------------------------------
-       ESCAPE KEY
-    ----------------------------------------------------- */
+    /* =====================================================
+       INITIAL SETUP
+    ===================================================== */
 
-    document.addEventListener("keydown", function (event) {
+    updateActiveSection();
 
-        if (event.key === "Escape") {
-
-            themePanel.classList.remove("active");
-
-        }
-
-    });
+    console.log(
+        "Portfolio script loaded successfully."
+    );
 
 });
-
-
-
-
-
-
-
-
-<nav class="nav-links" id="navLinks">
-
-    <a href="#home">Home</a>
-
-    <a href="#about">About Me</a>
-
-    <a href="#services">Services</a>
-
-    <a href="#portfolio">Portfolio</a>
-
-    <a href="#pages">Pages</a>
-
-    <a href="#contact">Contact</a>
-
-</nav>
-
-
-
-              
-
-
-              
-  <script src="script.js"></script>
-</body>
-</html>
