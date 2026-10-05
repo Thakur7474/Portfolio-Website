@@ -378,6 +378,181 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
   </div>
 
+
+
+  /* =========================================================
+   FINAL PORTFOLIO THEME SWITCHER
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const themeToggle = document.getElementById("themeToggle");
+    const themePanel = document.getElementById("themePanel");
+    const themeButtons = document.querySelectorAll(".theme-btn");
+
+    console.log("=================================");
+    console.log("Theme Switcher Loaded");
+    console.log("Toggle:", themeToggle);
+    console.log("Panel:", themePanel);
+    console.log("Buttons:", themeButtons.length);
+    console.log("=================================");
+
+
+    /* -----------------------------------------------------
+       SAFETY CHECK
+    ----------------------------------------------------- */
+
+    if (!themeToggle) {
+        console.error("Theme Toggle button not found.");
+        return;
+    }
+
+    if (!themePanel) {
+        console.error("Theme Panel not found.");
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       AVAILABLE THEMES
+    ----------------------------------------------------- */
+
+    const validThemes = [
+        "green-black",
+        "yellow-black",
+        "orange-black",
+        "cyan-black",
+        "red-black",
+        "purple-black",
+        "ice-blue-black"
+    ];
+
+
+    /* -----------------------------------------------------
+       APPLY THEME
+    ----------------------------------------------------- */
+
+    function applyTheme(theme) {
+
+        if (!validThemes.includes(theme)) {
+            theme = "green-black";
+        }
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            theme
+        );
+
+        localStorage.setItem(
+            "portfolioTheme",
+            theme
+        );
+
+        console.log("Theme applied:", theme);
+    }
+
+
+    /* -----------------------------------------------------
+       LOAD SAVED THEME
+    ----------------------------------------------------- */
+
+    const savedTheme =
+        localStorage.getItem("portfolioTheme");
+
+    applyTheme(
+        validThemes.includes(savedTheme)
+            ? savedTheme
+            : "green-black"
+    );
+
+
+    /* -----------------------------------------------------
+       OPEN / CLOSE THEME PANEL
+    ----------------------------------------------------- */
+
+    themeToggle.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        themePanel.classList.toggle("active");
+
+        console.log(
+            "Theme panel:",
+            themePanel.classList.contains("active")
+                ? "OPEN"
+                : "CLOSED"
+        );
+
+    });
+
+
+    /* -----------------------------------------------------
+       THEME BUTTONS
+    ----------------------------------------------------- */
+
+    themeButtons.forEach(function (button) {
+
+        button.addEventListener("click", function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const selectedTheme =
+                button.getAttribute("data-theme");
+
+            console.log(
+                "Selected theme:",
+                selectedTheme
+            );
+
+            if (!selectedTheme) {
+                return;
+            }
+
+            applyTheme(selectedTheme);
+
+            themePanel.classList.remove("active");
+
+        });
+
+    });
+
+
+    /* -----------------------------------------------------
+       CLICK OUTSIDE
+    ----------------------------------------------------- */
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !themePanel.contains(event.target) &&
+            !themeToggle.contains(event.target)
+        ) {
+
+            themePanel.classList.remove("active");
+
+        }
+
+    });
+
+
+    /* -----------------------------------------------------
+       ESCAPE KEY
+    ----------------------------------------------------- */
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            themePanel.classList.remove("active");
+
+        }
+
+    });
+
+});
+
  
 
 
